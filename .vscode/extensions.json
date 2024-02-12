@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "jakebecker.elixir-ls",
+    "benvp.vscode-hex-pm-intellisense",
+    "bradlc.vscode-tailwindcss",
+    "csstools.postcss",
+    "esbenp.prettier-vscode",
+    "phoenixframework.phoenix",
+  ]
+}
