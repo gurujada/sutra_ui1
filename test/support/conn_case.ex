@@ -19,20 +19,23 @@ defmodule LibraryWeb.ConnCase do
 
   using do
     quote do
-      # The default endpoint for testing
-      @endpoint LibraryWeb.Endpoint
-
-      use LibraryWeb, :verified_routes
-
-      # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import LibraryWeb.ConnCase
+
+      alias LibraryWeb.Router.Helpers, as: Routes
+
+      @endpoint LibraryWeb.Endpoint
     end
   end
 
   setup tags do
-    Library.DataCase.setup_sandbox(tags)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Library.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(Library.Repo, {:shared, self()})
+    end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

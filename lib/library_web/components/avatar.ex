@@ -76,8 +76,7 @@ defmodule Avatar do
       "md" -> "h-11 w-11"
       "lg" -> "h-12 w-12"
       "xl" -> "h-14 w-14"
-      # default size
-      _ -> "h-12 w-12"
+
     end
   end
 

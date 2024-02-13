@@ -18,8 +18,10 @@ config :library, Library.Repo,
 config :library, LibraryWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "MJ6U8qT73OKA5UUjsgnqZAWaKn0LRF3dkR/ITAATU7+c/92JKtArHYfCJWChAGO2",
-  server: false
+  server: true
 
+config :library, :sql_sandbox, true
+config :wallaby, driver: Wallaby.Chrome
 # In test we don't send emails.
 config :library, Library.Mailer, adapter: Swoosh.Adapters.Test
 
