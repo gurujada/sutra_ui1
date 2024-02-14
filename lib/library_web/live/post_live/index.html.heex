@@ -1,4 +1,33 @@
-    <Avatar.avatar size="sm" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
+          <button id="button" phx-click="toggle-cart" type="button" class="inline-flex items-center px-4 py-3 text-sm font-semibold text-white bg-blue-600 border border-transparent rounded-lg gap-x-2 hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+             Open offcanvas
+              </button>
+
+
+<button phx-click="toggle-cart" id="cart-button">Click</button>
+
+
+        <%!-- <div class={["-translate-x-full fixed top-0 start-0 transition-all duration-300 transform h-full max-w-xs w-full z-[80] bg-red-900 border-e ark:bg-gray-800 ark:border-gray-700", @show_cart && "hidden"]} tabindex="-1">
+          <div class="flex items-center justify-between px-4 py-3 border-b dark:border-gray-700">
+            <h3 class="font-bold text-gray-800 dark:text-white">
+              Offcanvas title
+            </h3>
+            <button type="button" class="flex items-center justify-center text-sm font-semibold text-gray-800 border border-transparent rounded-full w-7 h-7 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" data-hs-overlay="#hs-overlay-example">
+              <span class="sr-only">Close modal</span>
+              <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+          </div>
+          <div class="p-4">
+            <p class="text-gray-800 dark:text-gray-400">
+              Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+            </p>
+          </div>
+        </div> --%>
+
+
+
+<%= inspect(@show_cart) %>
+
+
 <%!-- <div class="my-2">
   <h1 class="text-xl">Sizes</h1>
   <div class="flex space-x-2">

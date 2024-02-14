@@ -6,6 +6,8 @@ defmodule LibraryWeb.PostLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    socket = socket
+    |> assign(show_cart: true)
     {:ok, stream(socket, :posts, Timeline.list_posts())}
   end
 
@@ -37,5 +39,10 @@ defmodule LibraryWeb.PostLive.Index do
     {:ok, _} = Timeline.delete_post(post)
 
     {:noreply, stream_delete(socket, :posts, post)}
+  end
+
+  def handle_event("toggle-cart", _, socket) do
+    socket = update(socket, :show_cart, fn show -> !show end)
+    {:noreply, socket}
   end
 end

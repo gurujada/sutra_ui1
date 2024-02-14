@@ -32,10 +32,6 @@ defmodule LibraryWeb.Endpoint do
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :library
   end
 
-  if Application.get_env(:chatter, :sql_sandbox) do
-    plug Phoenix.Ecto.SQL.Sandbox
-  end
-
   plug Phoenix.LiveDashboard.RequestLogger,
     param_key: "request_logger",
     cookie_key: "request_logger"
