@@ -1,7 +1,3 @@
-<LibraryWeb.Button.button size="sm" variant="shadow" color="danger">
-  Click me
-</LibraryWeb.Button.button>
-
 <%!-- <div class={["-translate-x-full fixed top-0 start-0 transition-all duration-300 transform h-full max-w-xs w-full z-[80] bg-red-900 border-e ark:bg-gray-800 ark:border-gray-700", @show_cart && "hidden"]} tabindex="-1">
           <div class="flex items-center justify-between px-4 py-3 border-b dark:border-gray-700">
             <h3 class="font-bold text-gray-800 dark:text-white">
@@ -204,17 +200,23 @@
   Connected
 </Chip.chip> --%>
 
-<%!-- <Breadcrumb.breadcrumb
-  separator="arrow"
+<Breadcrumb.breadcrumb
+  separator="slash"
   link_class=""
   links={[
-    %{label: "Link 1", to: "https://www.virinchi.me", link_type: "a"},
+    %{
+      label: "Link 1",
+      to: "https://www.virinchi.me",
+      link_type: "a",
+      icon: "hero-building-office-2"
+    },
     %{label: "Link 2", to: ""},
     %{label: "Link 3", to: ""},
     %{label: "Link 4", to: ""}
   ]}
 >
-</Breadcrumb.breadcrumb> --%>
+</Breadcrumb.breadcrumb>
+
 <%!--
 <div class="my-4">
   <h1 class="text-lg">Inputs</h1>

@@ -9,6 +9,8 @@ defmodule Breadcrumb do
 
   attr :link_type, :string, default: "live_patch", values: ["live_patch", "navigate", "a"]
 
+  attr :icon, :string, default: nil
+
   def breadcrumb(assigns) do
     ~H"""
     <div class={@class}>
@@ -16,37 +18,37 @@ defmodule Breadcrumb do
         <%= if counter > 0 do %>
           <.separator separator={@separator} />
         <% end %>
+
         <Link.linkv
           to={link.to}
           class={"#{get_link_classes(assigns)} #{ending_class(assigns, link)} "}
           link_type={Map.get(link, :link_type, "live_patch")}
         >
+          <.icon
+            name={Map.get(link, :icon, "hero-")}
+            class={["w-4 h-4 inline-flex items-center justify-center", @link_class]}
+          />
           <%= link.label %>
         </Link.linkv>
-
-        <%!-- <Link.a to={link.to} class={@link_class}>
-          <div class="flex items-center gap-2">
-            <%= if link[:icon] do %>
-              <Icon.icon name={link[:icon]} class={["pc-breadcrumb-icon", link[:icon_class]]} />
-            <% end %>
-            <%= if link[:label] do %>
-              <%= link.label %>
-            <% end %>
-          </div>
-        </Link.a> --%>
       <% end %>
     </div>
     """
   end
 
   def get_link_classes(assigns) do
-    "select-none inline-flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:focus:text-blue-500 #{assigns.link_class}"
+    "select-none inline-flex truncate items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:focus:text-blue-500 #{assigns.link_class}"
   end
 
   def ending_class(assigns, link) do
     if List.last(assigns.links) == link do
-      "text-black font-semibold"
+      "text-gray-800 font-semibold"
     end
+  end
+
+  def icon(%{name: "hero-" <> _} = assigns) do
+    ~H"""
+    <span class={[@name, @class]} />
+    """
   end
 
   def separator(assigns) do
@@ -54,10 +56,8 @@ defmodule Breadcrumb do
       "arrow" ->
         ~H"""
         <svg
-          class="inline-flex flex-shrink-0 w-6 h-6 mx-2 text-gray-400 stroke-current ark:text-gray-600"
+          class="inline-flex flex-shrink-0 h-5 w-5 mx-2 text-gray-400 stroke-current ark:text-gray-600"
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -72,7 +72,7 @@ defmodule Breadcrumb do
       "slash" ->
         ~H"""
         <svg
-          class="inline-flex flex-shrink-0 w-6 h-6 mx-2 text-gray-400 stroke-current ark:text-gray-600"
+          class="inline-flex flex-shrink-0 h-5 w-5 mx-2 text-gray-400 stroke-current ark:text-gray-600"
           viewBox="0 0 16 16"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
