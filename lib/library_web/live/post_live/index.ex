@@ -6,8 +6,10 @@ defmodule LibraryWeb.PostLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    socket = socket
-    |> assign(show_cart: true)
+    socket =
+      socket
+      |> assign(show_cart: true)
+
     {:ok, stream(socket, :posts, Timeline.list_posts())}
   end
 
@@ -21,7 +23,7 @@ defmodule LibraryWeb.PostLive.Index do
   end
 
   defp apply_action(socket, :new, _params) do
-    socket |> assign(:page_title, "New Post") |> assign(:post, %Post{}) |> dbg()
+    socket |> assign(:page_title, "New Post") |> assign(:post, %Post{})
   end
 
   defp apply_action(socket, :index, _params) do

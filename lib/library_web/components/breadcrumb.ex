@@ -7,7 +7,7 @@ defmodule Breadcrumb do
 
   attr :class, :string, default: ""
 
-  attr :link_type, :string, default: "live_patch", values: ["live_patch", "live_redirect", "a"]
+  attr :link_type, :string, default: "live_patch", values: ["live_patch", "navigate", "a"]
 
   def breadcrumb(assigns) do
     ~H"""
