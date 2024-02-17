@@ -24,7 +24,7 @@ defmodule Breadcrumb do
           class={"#{get_link_classes(assigns)} #{ending_class(assigns, link)} "}
           link_type={Map.get(link, :link_type, "live_patch")}
         >
-          <.icon
+          <.icon :if={Map.has_key?(link, :icon)}
             name={Map.get(link, :icon, "hero-")}
             class={["w-4 h-4 inline-flex items-center justify-center", @link_class]}
           />

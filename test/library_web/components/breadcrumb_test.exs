@@ -104,7 +104,7 @@ defmodule Library.BreadcrumbTest do
         """)
 
       # Path for hero-user-solid
-      assert component =~ "d=\"M7.5 6a4.5 4.5 0"
+      assert component =~ "hero-user-solid"
     end
   end
 

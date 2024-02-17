@@ -73,8 +73,15 @@ defmodule Library.ChipTest do
       assert chip =~ "text-lg"
     end
 
-    test "chip size (xl)" do
+test "radius test" do
+  assigns = %{}
+  chip = rendered_to_string(~H"""
+  <.chip radius="md">Chip</.chip>
+  """)
+  assert chip =~ "rounded-md"
+end
 
-    end
+
+
   end
 end
