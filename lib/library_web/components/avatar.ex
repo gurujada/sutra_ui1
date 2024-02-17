@@ -76,7 +76,6 @@ defmodule Avatar do
       "md" -> "h-11 w-11"
       "lg" -> "h-12 w-12"
       "xl" -> "h-14 w-14"
-
     end
   end
 
@@ -88,6 +87,7 @@ defmodule Avatar do
       "warning" -> "bg-warning border-warning"
       "danger" -> "bg-danger border-danger"
       "gray-200" -> "bg-gray-200 border-gray-200"
+      _ -> "bg-gray-200 border-gray-200"
     end
   end
 
