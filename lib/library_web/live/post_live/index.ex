@@ -8,9 +8,24 @@ defmodule LibraryWeb.PostLive.Index do
   def mount(_params, _session, socket) do
     socket =
       socket
-      |> assign(show_cart: true)
+      |> assign(show_cart: false)
 
     {:ok, stream(socket, :posts, Timeline.list_posts())}
+  end
+
+  def render(assigns) do
+    ~H"""
+      <button phx-click="toggle">Open Offcanvas</button>
+        <%= @show_cart %>
+    <div class={["h-screen bg-red-500 w-1/5 top-0 left-0 absolute z-50 start-0 transition-all duration-300 transform",
+    @show_cart && "translate-x-0 -translate-x-full",
+    !@show_cart && "hidden"
+    ]}>
+          <div class="h-1/2 bg-green-500">
+          This is some content
+          </div>
+        </div>
+    """
   end
 
   @impl true
@@ -43,8 +58,9 @@ defmodule LibraryWeb.PostLive.Index do
     {:noreply, stream_delete(socket, :posts, post)}
   end
 
-  def handle_event("toggle-cart", _, socket) do
-    socket = update(socket, :show_cart, fn show -> !show end)
+  def handle_event("toggle", _, socket) do
+    socket = assign(socket, show_cart: true)
+    IO.inspect("Ihve been called!")
     {:noreply, socket}
   end
 end
