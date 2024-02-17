@@ -87,6 +87,7 @@ defmodule Avatar do
       "warning" -> "bg-warning border-warning"
       "danger" -> "bg-danger border-danger"
       "gray-200" -> "bg-gray-200 border-gray-200"
+      _ -> "bg-gray-200 border-gray-200"
     end
   end
 
