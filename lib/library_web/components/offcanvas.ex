@@ -2,40 +2,202 @@ defmodule Offcanvas do
   use Phoenix.Component
   alias Phoenix.LiveView.JS
 
-  def offcanvas(assigns) do
+  slot :inner_block
+  attr :position, :string, default: "left", values: ["top", "right", "left", "bottom"]
+
+  def offcanvas(%{position: "right"} = assigns) do
     ~H"""
-    <%!-- <div id="hs-overlay-example" class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full fixed top-0 start-0 transition-all duration-300 transform h-full max-w-xs w-full z-[80] bg-red-500 border-e ark:bg-gray-800 ark:border-gray-700" tabindex="-1">
-      <div class="flex justify-between items-center py-3 px-4 border-b ark:border-gray-700">
-        <h3 class="font-bold text-gray-800 ark:text-white">
-          Offcanvas title
-        </h3>
-        <button type="button" class="flex justify-center items-center w-7 h-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" data-hs-overlay="#hs-overlay-example">
-          <span class="sr-only">Close modal</span>
-          <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-      </div>
-      <div class="p-4">
-        <p class="text-gray-800 dark:text-gray-400">
-          Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
-        </p>
-      </div>
-    </div> --%>
-
-    <%!-- <div class="h-screen w-full bg-gray-100 z-0 opacity-70 fixed inset-0">
-    </div> --%>
-    <div class={"#{toggle(assigns)} h-screen bg-red-500 w-1/5 top-0 left-0 absolute z-50 start-0 transition-all duration-300 transform"}>
-      <div class="h-1/2 bg-green-500">
-
-      </div>
+    <button
+      class="z-50 bg-red-400"
+      phx-click={
+        JS.toggle(
+          to: "#cart",
+          in: {"ease-in-out duration-300", "translate-x-full", "-translate-x-0"},
+          out: {"ease-in-out duration-300", "-translate-x-0", "translate-x-full"},
+          time: 300
+        )
+        |> JS.toggle(
+          to: "#backdrop",
+          in: "fade-in",
+          out: "fade-out"
+        )
+      }
+    >
+      Open
+    </button>
+    <div
+      phx-click={
+        JS.toggle(
+          to: "#cart",
+          in: {"ease-in-out duration-300", "translate-x-full", "-translate-x-0"},
+          out: {"ease-in-out duration-300", "-translate-x-0", "translate-x-full"},
+          time: 300
+        )
+        |> JS.toggle(
+          to: "#backdrop",
+          in: "fade-in",
+          out: "fade-out"
+        )
+      }
+      id="backdrop"
+      class="absolute z-10 hidden w-full h-screen bg-gray-600/20"
+    >
+    </div>
+    <div
+      id="cart"
+      class={[
+        "hidden h-screen bg-white lg:max-w-sm max-w-xs top-0 right-0 absolute z-50"
+      ]}
+    >
+      <%= render_slot(@inner_block) %>
     </div>
     """
   end
 
-  def toggle(assigns) do
-    if (@show_cart) do
-      "translate-x-0 -translate-x-full"
-    else "hidden"
-    end
+  def offcanvas(%{position: "left"} = assigns) do
+    ~H"""
+    <button
+      class="z-50 bg-red-400"
+      phx-click={
+        JS.toggle(
+          to: "#cart",
+          in: {"ease-in-out duration-300", "-translate-x-full", "translate-x-0"},
+          out: {"ease-in-out duration-300", "translate-x-0", "-translate-x-full"},
+          time: 300
+        )
+        |> JS.toggle(
+          to: "#backdrop",
+          in: "fade-in",
+          out: "fade-out"
+        )
+      }
+    >
+      Open
+    </button>
+    <div
+      phx-click={
+        JS.toggle(
+          to: "#cart",
+          in: {"ease-in-out duration-300", "-translate-x-full", "translate-x-0"},
+          out: {"ease-in-out duration-300", "translate-x-0", "-translate-x-full"},
+          time: 300
+        )
+        |> JS.toggle(
+          to: "#backdrop",
+          in: "fade-in",
+          out: "fade-out"
+        )
+      }
+      id="backdrop"
+      class="absolute z-10 hidden w-full h-screen bg-gray-600/20"
+    >
+    </div>
+    <div
+      id="cart"
+      class={[
+        "hidden h-screen bg-white lg:max-w-sm max-w-xs top-0 left-0 absolute z-50"
+      ]}
+    >
+      <%= render_slot(@inner_block) %>
+    </div>
+    """
   end
 
+  def offcanvas(%{position: "top"} = assigns) do
+    ~H"""
+    <button
+      class="z-50 bg-red-400 "
+      phx-click={
+        JS.toggle(
+          to: "#cart",
+          in: {"ease-in-out duration-300", "-translate-y-full", "translate-y-0"},
+          out: {"ease-in-out duration-300", "translate-y-0", "-translate-y-full"},
+          time: 300
+        )
+        |> JS.toggle(
+          to: "#backdrop",
+          in: "fade-in",
+          out: "fade-out"
+        )
+      }
+    >
+      Open
+    </button>
+    <div
+      phx-click={
+        JS.toggle(
+          to: "#cart",
+          in: {"ease-in-out duration-300", "-translate-y-full", "translate-y-0"},
+          out: {"ease-in-out duration-300", "translate-y-0", "-translate-y-full"},
+          time: 300
+        )
+        |> JS.toggle(
+          to: "#backdrop",
+          in: "fade-in",
+          out: "fade-out"
+        )
+      }
+      id="backdrop"
+      class="absolute inset-x-0 z-10 hidden w-full h-screen bg-gray-600/20"
+    >
+    </div>
+    <div
+      id="cart"
+      class={[
+        "hidden bg-white w-full max-h-min inset-x-0 top-0 absolute z-50"
+      ]}
+    >
+      <%= render_slot(@inner_block) %>
+    </div>
+    """
+  end
+
+  def offcanvas(%{position: "bottom"} = assigns) do
+    ~H"""
+    <button
+      class="z-50 bg-red-400 "
+      phx-click={
+        JS.toggle(
+          to: "#cart",
+          in: {"ease-in-out duration-300", "translate-y-full", "-translate-y-0"},
+          out: {"ease-in-out duration-300", "-translate-y-0", "translate-y-full"},
+          time: 300
+        )
+        |> JS.toggle(
+          to: "#backdrop",
+          in: "fade-in",
+          out: "fade-out"
+        )
+      }
+    >
+      Open
+    </button>
+    <div
+      phx-click={
+        JS.toggle(
+          to: "#cart",
+          in: {"ease-in-out duration-300", "translate-y-full", "-translate-y-0"},
+          out: {"ease-in-out duration-300", "-translate-y-0", "translate-y-full"},
+          time: 300
+        )
+        |> JS.toggle(
+          to: "#backdrop",
+          in: "fade-in",
+          out: "fade-out"
+        )
+      }
+      id="backdrop"
+      class="absolute inset-0 z-10 hidden w-full h-screen bg-gray-600/20"
+    >
+    </div>
+    <div
+      id="cart"
+      class={[
+        "hidden bg-white w-full max-h-min inset-x-0 bottom-0 absolute z-50"
+      ]}
+    >
+      <%= render_slot(@inner_block) %>
+    </div>
+    """
+  end
 end

@@ -13,21 +13,6 @@ defmodule LibraryWeb.PostLive.Index do
     {:ok, stream(socket, :posts, Timeline.list_posts())}
   end
 
-  def render(assigns) do
-    ~H"""
-      <button phx-click="toggle">Open Offcanvas</button>
-        <%= @show_cart %>
-    <div class={["h-screen bg-red-500 w-1/5 top-0 left-0 absolute z-50 start-0 transition-all duration-300 transform",
-    @show_cart && "translate-x-0 -translate-x-full",
-    !@show_cart && "hidden"
-    ]}>
-          <div class="h-1/2 bg-green-500">
-          This is some content
-          </div>
-        </div>
-    """
-  end
-
   @impl true
   def handle_params(params, _url, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
@@ -56,11 +41,5 @@ defmodule LibraryWeb.PostLive.Index do
     {:ok, _} = Timeline.delete_post(post)
 
     {:noreply, stream_delete(socket, :posts, post)}
-  end
-
-  def handle_event("toggle", _, socket) do
-    socket = assign(socket, show_cart: true)
-    IO.inspect("Ihve been called!")
-    {:noreply, socket}
   end
 end
