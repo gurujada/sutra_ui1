@@ -23,6 +23,7 @@ defmodule LibraryWeb.AvatarGroupTest do
 
       assert avatar_group =~ "<img"
     end
+
     test "renders arbitrary classes" do
       assigns = %{}
 
@@ -43,13 +44,14 @@ defmodule LibraryWeb.AvatarGroupTest do
       assert avatar_group =~ "bg-red-500"
       assert avatar_group =~ "border-blue-900"
     end
+
     test "renders max limit" do
       assigns = %{}
 
       avatar_group =
         rendered_to_string(~H"""
         <.avatar_group
-limit={1}
+          limit={1}
           avatars={[
             %{
               name: "Virinchi",
@@ -73,41 +75,36 @@ limit={1}
       assert avatar_group =~ "2"
       assert avatar_group =~ "+"
     end
+
     test "renders size" do
       assigns = %{}
 
       avatar_group =
         rendered_to_string(~H"""
-        <.avatar_group
-
-          avatars={[
-            %{
-              name: "Virinchi",
-              src:
-                "https://www.virinchi.me/img/virinchi_hu922a05f833375c24fc0b469acb202f7a_6128766_288x288_fill_q75_h2_box_center_2.webp"
-            }
-          ]}
-        />
+        <.avatar_group avatars={[
+          %{
+            name: "Virinchi",
+            src:
+              "https://www.virinchi.me/img/virinchi_hu922a05f833375c24fc0b469acb202f7a_6128766_288x288_fill_q75_h2_box_center_2.webp"
+          }
+        ]} />
         """)
 
       assert avatar_group =~ "h-11"
       assert avatar_group =~ "w-11"
     end
+
     test "renders placeholder" do
       assigns = %{}
 
       avatar_group =
         rendered_to_string(~H"""
-        <.avatar_group
-
-          avatars={[
-            %{
-              name: "Chivukula Virinchi",
-              src:
-                ""
-            }
-          ]}
-        />
+        <.avatar_group avatars={[
+          %{
+            name: "Chivukula Virinchi",
+            src: ""
+          }
+        ]} />
         """)
 
       assert avatar_group =~ "CV"
@@ -118,29 +115,26 @@ limit={1}
 
       avatar_group =
         rendered_to_string(~H"""
-        <.avatar_group
-
-          avatars={[
-            %{
-              name: "Chivukula Virinchi",
-              src:
-                "https://www.virinchi.me/img/virinchi_hu922a05f833375c24fc0b469acb202f7a_6128766_288x288_fill_q75_h2_box_center_2.webp"
-            }
-          ]}
-        />
+        <.avatar_group avatars={[
+          %{
+            name: "Chivukula Virinchi",
+            src:
+              "https://www.virinchi.me/img/virinchi_hu922a05f833375c24fc0b469acb202f7a_6128766_288x288_fill_q75_h2_box_center_2.webp"
+          }
+        ]} />
         """)
 
       assert avatar_group =~ "-space-x"
       refute avatar_group =~ "grid"
     end
 
-test "renders color" do
+    test "renders color" do
       assigns = %{}
 
       avatar_group =
         rendered_to_string(~H"""
         <.avatar_group
-        color="primary"
+          color="primary"
           avatars={[
             %{
               name: "Chivukula Virinchi",
@@ -154,24 +148,22 @@ test "renders color" do
       assert avatar_group =~ "border-primary"
       assert avatar_group =~ "bg-primary"
     end
-test "renders border" do
+
+    test "renders border" do
       assigns = %{}
 
       avatar_group =
         rendered_to_string(~H"""
-        <.avatar_group
-          avatars={[
-            %{
-              name: "Chivukula Virinchi",
-              src:
-                "https://www.virinchi.me/img/virinchi_hu922a05f833375c24fc0b469acb202f7a_6128766_288x288_fill_q75_h2_box_center_2.webp"
-            }
-          ]}
-        />
+        <.avatar_group avatars={[
+          %{
+            name: "Chivukula Virinchi",
+            src:
+              "https://www.virinchi.me/img/virinchi_hu922a05f833375c24fc0b469acb202f7a_6128766_288x288_fill_q75_h2_box_center_2.webp"
+          }
+        ]} />
         """)
 
       assert avatar_group =~ "ring"
     end
-
   end
 end
