@@ -380,12 +380,12 @@
   />
 </div>
 
-<Offcanvas.offcanvas position="right">
+<Offcanvas.offcanvas class="absolute top-0" position="top">
   <div class="flex items-center justify-between px-4 py-3 border-b ark:border-gray-700">
     <h3 class="font-bold text-gray-800 ark:text-white">
       Offcanvas title
     </h3>
-    <button
+    <button phx-click={Offcanvas.button_classes("top")}
       type="button"
       class="flex items-center justify-center text-sm font-semibold text-gray-800 border border-transparent rounded-full w-7 h-7 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none ark:text-white ark:hover:bg-gray-700 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
       data-hs-overlay="#hs-overlay-example"
