@@ -380,7 +380,7 @@
   />
 </div>
 
-<Offcanvas.offcanvas class="absolute top-0" position="top">
+<%!-- <Offcanvas.offcanvas class="absolute top-0" position="top">
   <div class="flex items-center justify-between px-4 py-3 border-b ark:border-gray-700">
     <h3 class="font-bold text-gray-800 ark:text-white">
       Offcanvas title
@@ -413,4 +413,14 @@
     </p>
     <LibraryWeb.Button.button class="mt-2" color="primary">Click Me!</LibraryWeb.Button.button>
   </div>
-</Offcanvas.offcanvas>
+</Offcanvas.offcanvas> --%>
+
+<Modal.modal :if={@live_action in [:new]} id="test" show on_cancel={JS.patch(~p"/posts")}>
+  <:title_slot>
+  <div class="flex items-center justify-between px-4 py-3 border-b ark:border-gray-700">
+        <h3 class="font-semibold text-gray-800 ark:text-white">
+          Modal title
+        </h3>
+      </div>
+  </:title_slot>
+</Modal.modal>

@@ -42,4 +42,9 @@ defmodule LibraryWeb.PostLive.Index do
 
     {:noreply, stream_delete(socket, :posts, post)}
   end
+
+  def handle_event("toggle", _, socket) do
+    socket = socket |> update(:show_cart, fn show -> !show end)
+    {:noreply, socket}
+  end
 end
