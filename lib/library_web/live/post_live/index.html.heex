@@ -415,12 +415,30 @@
   </div>
 </Offcanvas.offcanvas> --%>
 
-<Modal.modal :if={@live_action in [:new]} id="test" show on_cancel={JS.patch(~p"/posts")}>
-  <:title_slot>
-  <div class="flex items-center justify-between px-4 py-3 border-b ark:border-gray-700">
-        <h3 class="font-semibold text-gray-800 ark:text-white">
-          Modal title
-        </h3>
-      </div>
-  </:title_slot>
+<Modal.modal size="lg" :if={@live_action in [:new]} id="test" show on_cancel={JS.patch(~p"/posts")}>
+  <:modal_header>
+    Modal Title
+  </:modal_header>
+
+  <:modal_content>
+    <p class="text-gray-800">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores quia commodi illum aliquid exercitationem magni cum facere itaque libero beatae culpa necessitatibus voluptatem officia laudantium saepe voluptas vitae, velit officiis!
+    </p>
+  </:modal_content>
+
+  <:modal_footer>
+    <button
+      type="button"
+      class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none ark:bg-slate-900 ark:border-gray-700 ark:text-white ark:hover:bg-gray-800 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+      data-hs-overlay="#hs-basic-modal"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="inline-flex items-center px-3 py-2 text-sm font-semibold text-white bg-blue-600 border border-transparent rounded-lg gap-x-2 hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+    >
+      Save changes
+    </button>
+  </:modal_footer>
 </Modal.modal>
