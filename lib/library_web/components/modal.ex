@@ -44,6 +44,11 @@ defmodule Modal do
   #     |> JS.focus_first(to: "##{id} .pc-modal__box")
   #   end
 
+  attr :size, :string, default: "sm", values: ["sm", "md", "lg"]
+  slot :modal_header, required: true, attrs: [:class]
+  slot :modal_content, required: true, attrs: [:class]
+  slot :modal_footer, required: false, attrs: [:class]
+
   def modal(assigns) do
     ~H"""
     <div
@@ -53,7 +58,11 @@ defmodule Modal do
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
       class="relative z-50 hidden"
     >
-      <div id={"#{@id}-bg"} class="fixed inset-0 transition-opacity bg-zinc-100/90" aria-hidden="true" />
+      <div
+        id={"#{@id}-bg"}
+        class="fixed inset-0 transition-opacity bg-zinc-100/90"
+        aria-hidden="true"
+      />
       <div
         class="fixed inset-0 overflow-y-auto"
         aria-labelledby={"#{@id}-title"}
@@ -63,39 +72,55 @@ defmodule Modal do
         tabindex="0"
       >
         <div class="flex items-center justify-center min-h-full">
-          <div class="w-full max-w-3xl p-2 sm:max-w-lg sm:w-full sm:mx-autos">
+          <div class={"w-full p-2 m-3 #{size_class(assigns)}"}>
             <.focus_wrap
               id={"#{@id}-container"}
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
               class="relative hidden transition duration-500 bg-white shadow-lg shadow-zinc-700/10 ring-zinc-700/10 rounded-2xl ring-1
-              flex flex-col border shadow-sm rounded-xl pointer-events-auto ark:bg-gray-800 ark:border-gray-700 ark:shadow-slate-700/[.7] p-3
+              flex flex-col border shadow-sm rounded-xl pointer-events-auto ark:bg-gray-800 ark:border-gray-700 ark:shadow-slate-700/[.7]
               "
             >
-
-
-              <div id={"#{@id}-content"}>
-              <div class="flex items-center justify-between">
-                <%= render_slot(@title_slot) %>
-                <div class="absolute top-6 right-5">
+              <div class="flex items-center justify-between px-4 py-3 border-b ark:border-gray-700">
+                <h3 class="font-bold text-gray-800 ark:text-white">
+                  <%= render_slot(@modal_header) %>
+                </h3>
                 <button
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
                   type="button"
-                  class="flex-none p-3 -m-3 focus:outline-none opacity-20 hover:opacity-40"
+                  class="flex items-center justify-center text-sm font-semibold text-gray-600 border border-transparent rounded-full focus:outline-none size-7 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none ark:text-white ark:hover:bg-gray-700 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
                 >
-                  <.icon name="hero-x-mark-solid" class="w-5 h-5" />
+                  <span class="sr-only">Close</span>
+                  <svg
+                    class="flex-shrink-0 p-1 size-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                  </svg>
                 </button>
               </div>
+              <div class={[
+                "p-4 overflow-y-auto",
+                Map.has_key?(hd(@modal_content), :class) && hd(@modal_content).class
+              ]}>
+                <%= render_slot(@modal_content) %>
               </div>
-                <%= render_slot(@inner_block) %>
-
+              <div class={[
+                "flex items-center justify-end px-4 py-3 border-t gap-x-2 ark:border-gray-700",
+                Map.has_key?(hd(@modal_footer), :class) && hd(@modal_footer).class
+              ]}>
+                <%= render_slot(@modal_footer) %>
               </div>
-
-
             </.focus_wrap>
-
-
           </div>
         </div>
       </div>
@@ -157,5 +182,13 @@ defmodule Modal do
          "opacity-100 translate-y-0 sm:scale-100",
          "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}
     )
+  end
+
+  def size_class(assigns) do
+    case assigns.size do
+      "sm" -> "sm:max-w-lg sm:w-full sm:mx-auto"
+      "md" -> "md:max-w-2xl md:w-full md:mx-auto"
+      "lg" -> "lg:max-w-4xl lg:w-full lg:mx-auto"
+    end
   end
 end

@@ -5,12 +5,10 @@ defmodule Offcanvas do
   slot :inner_block
   attr :position, :string, default: "left", values: ["top", "right", "left", "bottom"]
   attr :class, :string, default: ""
+
   def offcanvas(%{position: "right"} = assigns) do
     ~H"""
-    <button
-      class={["z-50 bg-red-40", @class]}
-      phx-click={button_classes(@position)}
-    >
+    <button class={["z-50 bg-red-40", @class]} phx-click={button_classes(@position)}>
       Open
     </button>
     <div
@@ -32,10 +30,7 @@ defmodule Offcanvas do
 
   def offcanvas(%{position: "left"} = assigns) do
     ~H"""
-    <button
-      class={["z-50 bg-red-400", @class]}
-      phx-click={button_classes(@position)}
-    >
+    <button class={["z-50 bg-red-400", @class]} phx-click={button_classes(@position)}>
       Open
     </button>
     <div
@@ -57,10 +52,7 @@ defmodule Offcanvas do
 
   def offcanvas(%{position: "top"} = assigns) do
     ~H"""
-    <button
-      class={["z-50 bg-red-400", @class]}
-      phx-click={button_classes(@position)}
-    >
+    <button class={["z-50 bg-red-400", @class]} phx-click={button_classes(@position)}>
       Open
     </button>
     <div
@@ -82,10 +74,7 @@ defmodule Offcanvas do
 
   def offcanvas(%{position: "bottom"} = assigns) do
     ~H"""
-    <button
-      class={["z-50 bg-red-400", @class]}
-      phx-click={button_classes(@position)}
-    >
+    <button class={["z-50 bg-red-400", @class]} phx-click={button_classes(@position)}>
       Open
     </button>
     <div
@@ -120,8 +109,7 @@ defmodule Offcanvas do
           out: "fade-out"
         )
 
-
-        "left" ->
+      "left" ->
         JS.toggle(
           to: "#offcanvas",
           in: {"ease-in-out duration-300", "-translate-x-full", "translate-x-0"},
@@ -134,7 +122,7 @@ defmodule Offcanvas do
           out: "fade-out"
         )
 
-        "top" ->
+      "top" ->
         JS.toggle(
           to: "#offcanvas",
           in: {"ease-in-out duration-300", "-translate-y-full", "translate-y-0"},
@@ -146,6 +134,7 @@ defmodule Offcanvas do
           in: "fade-in",
           out: "fade-out"
         )
+
       "bottom" ->
         JS.toggle(
           to: "#offcanvas",
@@ -158,8 +147,6 @@ defmodule Offcanvas do
           in: "fade-in",
           out: "fade-out"
         )
-
-      end
+    end
   end
-
 end
