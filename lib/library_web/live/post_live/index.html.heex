@@ -1,4 +1,4 @@
-<Avatar.avatar size="sm" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
+<%!-- <Avatar.avatar size="sm" src="https://avatars.githubusercontent.com/u/12817388?v=4" /> --%>
 
 <%!-- <div class="my-2">
   <h1 class="text-xl">Sizes</h1>
@@ -185,7 +185,7 @@
   Connected
 </Chip.chip> --%>
 
-<Breadcrumb.breadcrumb
+<%!-- <Breadcrumb.breadcrumb
   separator="slash"
   link_class=""
   links={[
@@ -200,7 +200,7 @@
     %{label: "Link 4", to: ""}
   ]}
 >
-</Breadcrumb.breadcrumb>
+</Breadcrumb.breadcrumb> --%>
 
 <%!--
 <div class="my-4">
@@ -345,7 +345,7 @@
   </:content>
 </Dropdown.dropdown> --%>
 
-<div class="w-1/4">
+<%!-- <div class="w-1/4">
   <AvatarGroup.avatar_group
     size="lg"
     variant="grid"
@@ -378,7 +378,7 @@
       }
     ]}
   />
-</div>
+</div> --%>
 
 <%!-- <Offcanvas.offcanvas class="absolute top-0" position="top">
   <div class="flex items-center justify-between px-4 py-3 border-b ark:border-gray-700">
@@ -415,7 +415,7 @@
   </div>
 </Offcanvas.offcanvas> --%>
 
-<Modal.modal
+<%!-- <Modal.modal
   :if={@live_action in [:new]}
   size="lg"
   id="test"
@@ -447,4 +447,79 @@
       Save changes
     </button>
   </:modal_footer>
-</Modal.modal>
+</Modal.modal> --%>
+
+<%!-- <Table.table  rows={[
+    %{
+      id: 1,
+      name: "John Smith",
+      age: 30
+    },
+    %{
+      id: 2,
+      name: "Beth Springs",
+      age: 25
+    },
+    %{
+      id: 3,
+      name: "Peter Knowles",
+      age: 40
+    },
+    %{
+      id: 4,
+      name: "Sarah Hill",
+      age: 35
+    }
+  ]}>
+<:col label="ID"></:col>
+<:col label="Name"></:col>
+<:col label="Age"></:col>
+<:col label="Address"></:col>
+<:col label="Action"></:col>
+
+</Table.table> --%>
+
+<%!-- <Table.table id="posts" socket={@socket}
+  cols={[body: %{label: "Bodies", class: "bg-red-500" }, likes_count: %{}, photo_locations: %{}]}
+  query={from p in Post}
+>
+</Table.table> --%>
+
+<div id="posts" phx-update="stream">
+  <.live_component
+    module={LibraryWeb.PostLive.LiveTable}
+    id="posts"
+    streams={@streams}
+    query={@query}
+    options={@options}
+    cols={@cols}
+    filter={@filter}
+    changeset="posts"
+  />
+</div>
+<.link patch={~p"/posts/new"}>New</.link>
+
+<.modal :if={@live_action in [:new, :edit]} id="post-modal" show on_cancel={JS.patch(~p"/posts")}>
+  <.live_component
+    module={LibraryWeb.PostLive.FormComponent}
+    id={@post.id || :new}
+    title={@page_title}
+    action={@live_action}
+    patch={~p"/posts"}
+    post={@post}
+  />
+</.modal>
+
+<form phx-change="filter">
+  <div class="filters">
+    <select phx-value-filter={@filter.type} name="type">
+      <%= Phoenix.HTML.Form.options_for_select(
+        filter_options(),
+        @filter.type
+      ) %>
+    </select>
+
+  <.input value="" type="text" name="sometei" />
+
+  </div>
+</form>

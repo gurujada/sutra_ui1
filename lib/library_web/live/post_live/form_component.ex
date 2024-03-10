@@ -2,6 +2,7 @@ defmodule LibraryWeb.PostLive.FormComponent do
   use LibraryWeb, :live_component
 
   alias Library.Timeline
+  alias Library.Timeline.Post
 
   @impl true
   def render(assigns) do
@@ -11,39 +12,8 @@ defmodule LibraryWeb.PostLive.FormComponent do
         <%= @title %>
         <:subtitle>Use this form to manage post records in your database.</:subtitle>
       </.header>
-      <.simple_form
-        for={@form}
-        id="post-form"
-        phx-target={@myself}
-        phx-change="validate"
-        name="form"
-        phx-submit="save"
-      >
-        <Input.input
-          field={@form[:body]}
-          variant="floating-underline"
-          placeholder="Body"
-          type="text"
-          label="Body"
-        >
-          <:icon>
-            <svg
-              class="flex-shrink-0 w-4 h-4 text-gray-500"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
-            </svg>
-          </:icon>
-        </Input.input>
-
+      <.simple_form for={@form} phx-target={@myself} phx-change="validate" phx-submit="save">
+        <.input field={@form[:body]} type="text" label="Body" />
         <.input field={@form[:likes_count]} type="number" label="Likes count" />
         <.input field={@form[:repost_count]} type="number" label="Repost count" />
         <.input

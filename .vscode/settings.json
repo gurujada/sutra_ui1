@@ -35,17 +35,16 @@
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
     "editor.wordBasedSuggestions": "off",
-    "editor.formatOnType": true,
     "editor.formatOnSave": true,
     "editor.trimAutoWhitespace": false,
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
-    "editor.defaultFormatter": "JakeBecker.elixir-ls"
+    "editor.defaultFormatter": "elixir-tools.elixir-tools"
   },
   "[phoenix-heex]": {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "JakeBecker.elixir-ls"
+    "editor.defaultFormatter": "elixir-tools.elixir-tools"
   },
   "javascript.updateImportsOnFileMove.enabled": "always",
   "git.confirmSync": false,

@@ -16,6 +16,5 @@ defmodule Library.Timeline.Post do
     post
     |> cast(attrs, [:body, :likes_count, :repost_count, :photo_locations])
     |> validate_required([:body])
-    |> validate_length(:body, min: 10)
   end
 end

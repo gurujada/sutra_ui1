@@ -1,6 +1,6 @@
 {
   "recommendations": [
-    "jakebecker.elixir-ls",
+    "elixir-tools.elixir-tools",
     "benvp.vscode-hex-pm-intellisense",
     "bradlc.vscode-tailwindcss",
     "csstools.postcss",
