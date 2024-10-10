@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :library, Library.Repo,
-  username: "virinchi",
-  password: "gurujada",
+  username: "postgres",
+  password: "postgres",
   hostname: "localhost",
   database: "library_dev",
   stacktrace: true,

@@ -1,5 +1,3 @@
-<Avatar.avatar size="sm" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-
 <%!-- <div class="my-2">
   <h1 class="text-xl">Sizes</h1>
   <div class="flex space-x-2">
@@ -109,7 +107,7 @@
 
 <%!-- <div class="my-4">
   <h1 class="text-lg">Size</h1>
-  <Button.button color="primary" size="sm">Button</Button.button>
+  <LibraryWeb.Button.button color="primary" size="sm">Button</LibraryWeb.Button.button>
   <Button.button color="primary" size="md">Button</Button.button>
   <Button.button color="primary" size="lg">Button</Button.button>
   <h1 class="text-lg">Color</h1>
@@ -144,8 +142,8 @@
     Checkout
   </Button.button>
 </div> --%>
-
-<%!-- <Chip.chip size="xs">Chip</Chip.chip>
+<%!--
+<Chip.chip size="xs">Chip</Chip.chip>
 <Chip.chip size="sm">Chip</Chip.chip>
 <Chip.chip size="md">Chip</Chip.chip>
 <Chip.chip size="lg">Chip</Chip.chip>
@@ -185,25 +183,7 @@
   Connected
 </Chip.chip> --%>
 
-<Breadcrumb.breadcrumb
-  separator="slash"
-  link_class=""
-  links={[
-    %{
-      label: "Link 1",
-      to: "https://www.virinchi.me",
-      link_type: "a",
-      icon: "hero-building-office-2"
-    },
-    %{label: "Link 2", to: ""},
-    %{label: "Link 3", to: ""},
-    %{label: "Link 4", to: ""}
-  ]}
->
-</Breadcrumb.breadcrumb>
-
-<%!--
-<div class="my-4">
+<%!-- <div class="my-4">
   <h1 class="text-lg">Inputs</h1>
   <h1 class="text-lg">Basic</h1>
   <Input.input name="body" value="" variant="basic" placeholder="Placeholder" label="Basic" />
@@ -295,9 +275,9 @@
   <Input.input label="Email" variant="floating-basic" />
   <Input.input label="Email" class="my-2" variant="floating-gray" />
   <Input.input label="Email" class="my-2" variant="floating-underline" />
-</div> --%>
+</div>
 
-<%!-- <Input.input
+<Input.input
   type="textarea"
   name="virinchi"
   variant="underline"
@@ -331,21 +311,9 @@
     post={@post}
     patch={~p"/posts"}
   />
-</.modal> --%>
+</.modal> --%
 
-<%!-- <Dropdown.dropdown id="main-nav-dropdown">
-  <:button>
-    Menu <Dropdown.chevron_down />
-  </:button>
-
-  <:content>
-    <.link href="/links">Links</.link>
-    <.link href="/posts">Posts</.link>
-    <.link href="/admin">Admin</.link>
-  </:content>
-</Dropdown.dropdown> --%>
-
-<div class="w-1/4">
+<%!-- <div class="w-1/4">
   <AvatarGroup.avatar_group
     size="lg"
     variant="grid"
@@ -380,12 +348,13 @@
   />
 </div>
 
-<%!-- <Offcanvas.offcanvas class="absolute top-0" position="top">
+<Offcanvas.offcanvas class="absolute top-0" position="top">
   <div class="flex items-center justify-between px-4 py-3 border-b ark:border-gray-700">
     <h3 class="font-bold text-gray-800 ark:text-white">
       Offcanvas title
     </h3>
-    <button phx-click={Offcanvas.button_classes("top")}
+    <button
+      phx-click={Offcanvas.button_classes("top")}
       type="button"
       class="flex items-center justify-center text-sm font-semibold text-gray-800 border border-transparent rounded-full w-7 h-7 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none ark:text-white ark:hover:bg-gray-700 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
       data-hs-overlay="#hs-overlay-example"
@@ -411,10 +380,9 @@
     <p class="text-gray-800 ark:text-gray-400">
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea unde est voluptatibus praesentium. Ipsam veritatis adipisci necessitatibus nostrum alias natus nobis quis provident sunt! Minima harum animi impedit earum et.
     </p>
-    <LibraryWeb.Button.button class="mt-2" color="primary">Click Me!</LibraryWeb.Button.button>
+    <%!-- <.Button.button class="mt-2" color="primary">Click Me!</.Button.button>
   </div>
-</Offcanvas.offcanvas> --%>
-
+</Offcanvas.offcanvas>
 <Modal.modal
   :if={@live_action in [:new]}
   size="lg"
@@ -447,4 +415,82 @@
       Save changes
     </button>
   </:modal_footer>
-</Modal.modal>
+</Modal.modal> --%>
+<%!--
+<Breadcrumb.breadcrumb
+  separator="slash"
+  link_class=""
+  links={[
+    %{
+      label: "Link 1",
+      to: "https://www.virinchi.me",
+      link_type: "a",
+      icon: "hero-building-office-2"
+    },
+    %{label: "Link 2", to: ""},
+    %{label: "Link 3", to: ""},
+    %{label: "Link 4", to: ""}
+  ]}
+>
+</Breadcrumb.breadcrumb> --%>
+
+<Dropdown.dropdown>
+  <%!-- Pass dropdown-toggle to the button and dropdown-icon to the icon. Additionally, pass transition, duration to the icon if you want to rotate it. Dont pass the icon at all if you dont want it.  --%>
+  <:trigger>
+    <button
+      id="dropdown-toggle"
+      type="button"
+      class=" py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none ark:bg-neutral-800 ark:border-neutral-700 ark:text-white ark:hover:bg-neutral-700 ark:focus:bg-neutral-700"
+      aria-haspopup="menu"
+      aria-expanded="false"
+      aria-label="Dropdown"
+    >
+      Actions
+      <svg
+        id="dropdown-icon"
+        class="transition duration-300 size-4"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </button>
+  </:trigger>
+
+  <:content>
+    <DropdownItem.dropdownItem type="custom" label="Newsletter"></DropdownItem.dropdownItem>
+
+    <DropdownItem.dropdownItem type="title" label="Newsletter" />
+    <DropdownItem.dropdownItem label="Newsletter" />
+
+    <div class="divide-y-2">
+      <div>
+        <DropdownItem.dropdownItem
+          icon="hero-exclamation-circle-mini"
+          label="Newsletter"
+          class="hover:text-red-500"
+          patch={~p"/"}
+        />
+        <DropdownItem.dropdownItem icon="hero-beaker" label="Newsletter" />
+      </div>
+      <div>
+        <DropdownItem.dropdownItem icon="hero-beaker" label="Newsletter" />
+      </div>
+      <div>
+        <DropdownItem.dropdownItem icon="hero-beaker" label="Newsletter" />
+      </div>
+      <div>
+        <DropdownItem.dropdownItem type="title" label="contacts" />
+        <DropdownItem.dropdownItem icon="hero-arrow-path" label="Newsletter" />
+      </div>
+      <DropdownItem.dropdownItem icon="hero-beaker" label="Newsletter" />
+    </div>
+  </:content>
+</Dropdown.dropdown>

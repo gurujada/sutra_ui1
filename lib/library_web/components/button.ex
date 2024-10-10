@@ -1,4 +1,4 @@
-defmodule LibraryWeb.Button do
+defmodule Button do
   use Phoenix.Component
   use Phoenix.VerifiedRoutes, endpoint: LibraryWeb.Endpoint, router: LibraryWeb.Router
 
