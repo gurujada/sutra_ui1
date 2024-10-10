@@ -11,6 +11,7 @@ defmodule DropdownItem do
   attr :type, :string, values: ["custom", "title", "default"], default: "default"
 
   attr :icon, :string, default: "hero-"
+  attr :kbd, :string, default: ""
 
   def(dropdownItem(assigns = %{type: "title"})) do
     ~H"""
@@ -36,11 +37,24 @@ defmodule DropdownItem do
   def dropdownItem(assigns) do
     ~H"""
     <.link
-      class={"flex items-center py-2 px-3 rounded-lg text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 ark:text-neutral-400 ark:hover:bg-neutral-700 ark:hover:text-neutral-300 ark:focus:bg-neutral-700 #{@class}"}
+      class={"flex items-center justify-between gap-x-8 py-2 px-3 rounded-lg text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 ark:text-neutral-400 ark:hover:bg-neutral-700 ark:hover:text-neutral-300 ark:focus:bg-neutral-700 #{@class}"}
       {@rest}
     >
-      <LibraryWeb.CoreComponents.icon :if={@icon} name={@icon} class="shrink-0 h-4 w-4 mr-2 m-1" />
-      <%= @label %>
+      <div>
+        <LibraryWeb.CoreComponents.icon
+          :if={@icon}
+          name={@icon}
+          class={"shrink-0 h-4 w-4 mr-2 m-1 text-gray-600 #{@class}"}
+        />
+        <%= @label %>
+      </div>
+
+      <kbd
+        :if={@kbd}
+        class="inline-flex items-center font-mono text-xs text-gray-400 ark:text-neutral-600"
+      >
+        <%= @kbd %>
+      </kbd>
     </.link>
     """
   end

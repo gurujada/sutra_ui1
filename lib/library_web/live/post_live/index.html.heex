@@ -434,8 +434,8 @@
 >
 </Breadcrumb.breadcrumb> --%>
 
-<Dropdown.dropdown>
-  <%!-- Pass dropdown-toggle to the button and dropdown-icon to the icon. Additionally, pass transition, duration to the icon if you want to rotate it. Dont pass the icon at all if you dont want it.  --%>
+<%!-- Pass dropdown-toggle to the button and dropdown-icon to the icon. Additionally, pass transition, duration to the icon if you want to rotate it. Dont pass the icon at all if you dont want it.  --%>
+<%!-- <Dropdown.dropdown>
   <:trigger>
     <button
       id="dropdown-toggle"
@@ -481,7 +481,7 @@
         <DropdownItem.dropdownItem icon="hero-beaker" label="Newsletter" />
       </div>
       <div>
-        <DropdownItem.dropdownItem icon="hero-beaker" label="Newsletter" />
+        <DropdownItem.dropdownItem kbd="shift + ," icon="hero-beaker" label="Newsletter" />
       </div>
       <div>
         <DropdownItem.dropdownItem icon="hero-beaker" label="Newsletter" />
@@ -493,4 +493,8 @@
       <DropdownItem.dropdownItem icon="hero-beaker" label="Newsletter" />
     </div>
   </:content>
-</Dropdown.dropdown>
+</Dropdown.dropdown> --%>
+
+<Tooltip.tooltip>
+  <button>Ghost</button>
+</Tooltip.tooltip>
