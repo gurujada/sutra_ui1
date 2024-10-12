@@ -10,10 +10,14 @@ defmodule Dropdown do
 
   def dropdown(assigns) do
     ~H"""
-    <div id="dropdown" phx-hook="Dropdown" class={"inline-flex relative #{@class}"} {@rest}>
+    <div
+      id={Ecto.UUID.generate()}
+      phx-hook="Dropdown"
+      class={"inline-flex relative #{@class}"}
+      {@rest}
+    >
       <%= render_slot(@trigger) %>
       <div
-        id="dropdown-menu"
         class="hidden absolute top-12 w-auto bg-white shadow-md rounded-lg mt-2 ark:bg-neutral-800 ark:border ark:border-neutral-700 ark:divide-neutral-700"
         role="menu"
         aria-orientation="vertical"

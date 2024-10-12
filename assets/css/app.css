@@ -73,3 +73,17 @@
 .products .product.added {
   @apply border-4 border-indigo-300 transition-colors;
 }
+
+
+/* Uncomment this to apply custom styles to tooltips. */
+.tippy-tooltip   {
+ all: inherit;
+}
+
+.tippy-content {
+    all: inherit;
+}
+
+.tippy-arrow {
+  all: inherit !important;
+}

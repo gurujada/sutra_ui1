@@ -21,6 +21,11 @@ import "phoenix_html";
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 import topbar from "../vendor/topbar";
+
+import tippy from "tippy.js";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/dist/svg-arrow.css";
+
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
@@ -28,9 +33,9 @@ let csrfToken = document
 Hooks = {};
 Hooks.Dropdown = {
   mounted() {
-    this.toggle = this.el.querySelector("#dropdown-toggle");
-    this.menu = this.el.querySelector("#dropdown-menu");
-    this.icon = this.el.querySelector("#dropdown-icon");
+    this.toggle = this.el.querySelector("button");
+    this.menu = this.el.querySelector("div");
+    this.icon = this.el.querySelector("svg");
     this.isOpen = false;
 
     this.initializePopper();
@@ -45,7 +50,7 @@ Hooks.Dropdown = {
         {
           name: "preventOverflow",
           options: {
-            boundary: "viewport",
+            // boundary: "",
           },
         },
         {
@@ -94,6 +99,31 @@ Hooks.Dropdown = {
     this.isOpen = false;
   },
 };
+
+Hooks.Tooltip = {
+  mounted() {
+    tippy(this.el.id ? `#${this.el.id}` : this.el.id, {
+      arrow: true,
+      placement: "auto",
+      // duration: 0,
+      allowHTML: true,
+      onCreate: (instance) => {
+        if (this.el.dataset.tippyClass) {
+          instance.popper.classList.add(
+            ...this.el.dataset.tippyClass.split(" "),
+          );
+        }
+      },
+    });
+  },
+};
+
+Hooks.Tabs = {
+  mounted() {
+    // console.log(this.el);
+  },
+};
+
 let liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
   hooks: Hooks,

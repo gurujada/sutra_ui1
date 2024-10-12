@@ -438,7 +438,9 @@
 <%!-- <Dropdown.dropdown>
   <:trigger>
     <button
-      id="dropdown-toggle"
+      phx-hook="Tooltip"
+      data-tippy-content="Hi"
+      id="dropdown-button1"
       type="button"
       class=" py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none ark:bg-neutral-800 ark:border-neutral-700 ark:text-white ark:hover:bg-neutral-700 ark:focus:bg-neutral-700"
       aria-haspopup="menu"
@@ -447,7 +449,7 @@
     >
       Actions
       <svg
-        id="dropdown-icon"
+        id="dropdown-icon1"
         class="transition duration-300 size-4"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -494,7 +496,63 @@
     </div>
   </:content>
 </Dropdown.dropdown> --%>
+<%!--
+<button
+  phx-hook="Tooltip"
+  data-tippy-content="<b>Lorem</b> ipsum dolor sit amet consecticur api"
+  data-tippy-class="rounded-md px-2.5 py-0.5 text-white bg-gray-700 text-xs"
+  id="b1"
+>
+  Ghost
+</button> --%>
 
-<Tooltip.tooltip>
-  <button>Ghost</button>
-</Tooltip.tooltip>
+<.live_component module={Tabs} active_tab={@active_tab} id="1">
+  <:tab name="Home" icon="hero-home" badge="9">
+    <div id="tabs-with-underline-1" role="tabpanel" aria-labelledby="tabs-with-underline-item-1">
+      <p class="text-gray-500 ark:text-neutral-400">
+        This is the <em class="font-semibold text-gray-800 ark:text-neutral-200">first</em>
+        item's tab body.
+      </p>
+    </div>
+  </:tab>
+  <:tab name="Profile" icon="hero-user">
+    <div
+      id="tabs-with-underline-2"
+      class=""
+      role="tabpanel"
+      aria-labelledby="tabs-with-underline-item-2"
+    >
+      <p class="text-gray-500 ark:text-neutral-400">
+        This is the <em class="font-semibold text-gray-800 ark:text-neutral-200">second</em>
+        item's tab body.
+      </p>
+    </div>
+  </:tab>
+  <:tab name="Settings" icon="hero-cog-6-tooth" badge="50+">
+    <div
+      id="tabs-with-underline-3"
+      class=""
+      role="tabpanel"
+      aria-labelledby="tabs-with-underline-item-3"
+    >
+      <p class="text-gray-500 ark:text-neutral-400">
+        This is the <em class="font-semibold text-gray-800 ark:text-neutral-200">third</em>
+        item's tab body.
+      </p>
+    </div>
+  </:tab>
+
+  <:tab name="Submarines">
+    <div
+      id="tabs-with-underline-4"
+      class=""
+      role="tabpanel"
+      aria-labelledby="tabs-with-underline-item-3"
+    >
+      <p class="text-gray-500 ark:text-neutral-400">
+        This is the <em class="font-semibold text-gray-800 ark:text-neutral-200">fourth</em>
+        item's tab body.
+      </p>
+    </div>
+  </:tab>
+</.live_component>

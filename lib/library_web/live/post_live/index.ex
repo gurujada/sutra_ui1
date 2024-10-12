@@ -3,7 +3,6 @@ defmodule LibraryWeb.PostLive.Index do
 
   alias Library.Timeline
   alias Library.Timeline.Post
-  import Button
   @impl true
   def mount(_params, _session, socket) do
     socket =
@@ -15,7 +14,12 @@ defmodule LibraryWeb.PostLive.Index do
 
   @impl true
   def handle_params(params, _url, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+    socket =
+      socket
+      |> assign(active_tab: params["tab"] || "home")
+      |> apply_action(socket.assigns.live_action, params)
+
+    {:noreply, socket}
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
