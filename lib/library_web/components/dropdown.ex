@@ -13,18 +13,19 @@ defmodule Dropdown do
     <div
       id={Ecto.UUID.generate()}
       phx-hook="Dropdown"
-      class={"inline-flex relative #{@class}"}
+      class={"relative inline-flex #{@class}"}
       {@rest}
     >
       <%= render_slot(@trigger) %>
       <div
-        class="hidden absolute top-12 w-auto bg-white shadow-md rounded-lg mt-2 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"
+        class="z-50 duration hidden min-w-60 bg-white shadow-md rounded-lg mt-2 divide-y divide-gray-200 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"
         role="menu"
         aria-orientation="vertical"
+        aria-labelledby="hs-dropdown-with-dividers"
       >
-        <div class="space-y-0.5">
-          <%= render_slot(@content) %>
-        </div>
+        <%= render_slot(@content) %>
+        <%!-- Wrap your content in <div class="p-1 space-y-0.5"> to get neatly spaced divides.
+        Else, wrap entire content in one div with same class to get neatly spaced items. --%>
       </div>
     </div>
     """

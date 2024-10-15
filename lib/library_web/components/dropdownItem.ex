@@ -12,6 +12,7 @@ defmodule DropdownItem do
 
   attr :icon, :string, default: "hero-"
   attr :kbd, :string, default: ""
+  slot :inner_block
 
   def(dropdownItem(assigns = %{type: "title"})) do
     ~H"""
@@ -41,17 +42,12 @@ defmodule DropdownItem do
       {@rest}
     >
       <div>
-        <LibraryWeb.CoreComponents.icon
-          :if={@icon}
-          name={@icon}
-          class={"shrink-0 h-4 w-4 mr-2 m-1 text-gray-600 #{@class}"}
-        />
+        <LibraryWeb.CoreComponents.icon :if={@icon} name={@icon} class="shrink-0 h-4 w-4 mr-2 m-1" />
         <%= @label %>
       </div>
-
       <kbd
-        :if={@kbd}
-        class="inline-flex items-center font-mono text-xs text-gray-400 dark:text-neutral-600"
+        :if={@kbd != ""}
+        class="inline-flex justify-center items-center px-1 py-0.5 bg-gray-100 border border-transparent font-mono text-xs text-gray-500 rounded-md dark:bg-neutral-700 dark:text-neutral-400"
       >
         <%= @kbd %>
       </kbd>

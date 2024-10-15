@@ -64,6 +64,6 @@ defmodule Tabs do
   end
 
   def get_active_badge() do
-    "bg-blue-100 text-blue-600 dark:bg-blue-800 dark:text-white"
+    "!bg-blue-100 !text-blue-600 dark:!bg-blue-800 dark:!text-white"
   end
 end
