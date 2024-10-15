@@ -57,7 +57,7 @@ defmodule Breadcrumb do
       "arrow" ->
         ~H"""
         <svg
-          class="inline-flex flex-shrink-0 h-5 w-5 mx-2 text-gray-400 stroke-current ark:text-gray-600"
+          class="inline-flex flex-shrink-0 h-5 w-5 mx-2 text-gray-400 stroke-current dark:text-gray-600"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
@@ -73,7 +73,7 @@ defmodule Breadcrumb do
       "slash" ->
         ~H"""
         <svg
-          class="inline-flex flex-shrink-0 h-5 w-5 mx-2 text-gray-400 stroke-current ark:text-gray-600"
+          class="inline-flex flex-shrink-0 h-5 w-5 mx-2 text-gray-400 stroke-current dark:text-gray-600"
           viewBox="0 0 16 16"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

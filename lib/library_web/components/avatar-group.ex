@@ -64,6 +64,6 @@ defmodule AvatarGroup do
   end
 
   def get_avatar_group_classes(assigns) do
-    "inline-block ring-1 ring-white ark:ring-gray-800 z-0 #{assigns[:class]}"
+    "inline-block ring-1 ring-white dark:ring-gray-800 z-0 #{assigns[:class]}"
   end
 end

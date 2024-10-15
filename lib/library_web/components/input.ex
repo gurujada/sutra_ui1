@@ -24,12 +24,12 @@ defmodule Input do
   #   #     case assigns.variant do
   #   #       "basic" ->
   #   #         ~H"""
-  #   #         <label class="block mb-2 text-sm font-medium ark:text-white" for="input"><%= @label %></label>
+  #   #         <label class="block mb-2 text-sm font-medium dark:text-white" for="input"><%= @label %></label>
   #   #         <input
   #   #           value={@value}
   #   #           id="input"
   #   #           placeholder={@placeholder}
-  #   #           class="block w-full px-4 py-3 text-sm border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ark:bg-slate-900 ark:border-gray-700 ark:text-gray-400 ark:focus:ring-gray-600"
+  #   #           class="block w-full px-4 py-3 text-sm border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
   #   #           type="email"
   #   #         />
   #   #         """
@@ -37,12 +37,12 @@ defmodule Input do
   #   #       "gray" ->
   #   #         ~H"""
   #   #         <div class="relative">
-  #   #           <label class="block mb-2 text-sm font-medium ark:text-white" for="input"><%= @label %></label>
+  #   #           <label class="block mb-2 text-sm font-medium dark:text-white" for="input"><%= @label %></label>
 
   #   #           <input
   #   #             value={@value}
   #   #             type={@type}
-  #   #             class={"block px-4 py-3 text-sm bg-gray-100 border-transparent rounded-lg peer ps-11 focus:border-blue-500 focus:ring-blue-500 ark:bg-gray-700 ark:border-transparent ark:text-gray-400 ark:focus:ring-gray-600 #{assigns.class}"}
+  #   #             class={"block px-4 py-3 text-sm bg-gray-100 border-transparent rounded-lg peer ps-11 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600 #{assigns.class}"}
   #   #             placeholder={@placeholder}
   #   #           />
   #   #           <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
@@ -59,7 +59,7 @@ defmodule Input do
   #   #           <input
   #   #             value={@value}
   #   #             type={@type}
-  #   #             class={"block py-3 text-sm bg-transparent border-b-2 peer pe-0 ps-8 border-t-transparent border-x-transparent border-b-gray-200 focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 ark:border-b-gray-700 ark:text-gray-400 ark:focus:ring-gray-600 ark:focus:border-b-gray-600 #{assigns.class}"}
+  #   #             class={"block py-3 text-sm bg-transparent border-b-2 peer pe-0 ps-8 border-t-transparent border-x-transparent border-b-gray-200 focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 dark:border-b-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 dark:focus:border-b-gray-600 #{assigns.class}"}
   #   #             placeholder={@placeholder}
   #   #           />
   #   #           <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-2 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
@@ -77,12 +77,12 @@ defmodule Input do
   #   #             value={@value}
   #   #             type={@type}
   #   #             id="hs-floating-input-email"
-  #   #             class={"peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:placeholder:text-gray-700 focus:border-blue-500 focus:ring-blue-500 ark:bg-slate-900 ark:border-gray-700 ark:text-gray-400 ark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class}"}
+  #   #             class={"peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:placeholder:text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class}"}
   #   #             placeholder={@placeholder}
   #   #           />
   #   #           <label
   #   #             for="hs-floating-input-email"
-  #   #             class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent ark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
+  #   #             class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
   #   #         peer-focus:text-xs
   #   #         peer-focus:-translate-y-1.5
   #   #         peer-focus:text-gray-500
@@ -102,7 +102,7 @@ defmodule Input do
   #   #             value={@value}
   #   #             type={@type}
   #   #             id="hs-floating-gray-input-email"
-  #   #             class={"peer p-4 block w-full bg-gray-100 border-transparent rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ark:bg-gray-700 ark:border-transparent ark:text-gray-400 ark:focus:ring-gray-600
+  #   #             class={"peer p-4 block w-full bg-gray-100 border-transparent rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-700 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600
   #   #         focus:pt-6
   #   #         focus:pb-2
   #   #         [&:not(:placeholder-shown)]:pt-6
@@ -113,7 +113,7 @@ defmodule Input do
   #   #           />
   #   #           <label
   #   #             for="hs-floating-gray-input-email"
-  #   #             class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent ark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
+  #   #             class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
   #   #         peer-focus:text-xs
   #   #         peer-focus:-translate-y-1.5
   #   #         peer-focus:text-gray-500
@@ -133,7 +133,7 @@ defmodule Input do
   #   #             value={@value}
   #   #             type={@type}
   #   #             id="hs-floating-underline-input-email"
-  #   #             class={"peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none ark:border-b-gray-700 ark:text-gray-400 ark:focus:ring-gray-600 ark:focus:border-b-gray-600
+  #   #             class={"peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 dark:focus:border-b-gray-600
   #   #         focus:pt-6
   #   #         focus:pb-2
   #   #         [&:not(:placeholder-shown)]:pt-6
@@ -144,7 +144,7 @@ defmodule Input do
   #   #           />
   #   #           <label
   #   #             for="hs-floating-underline-input-email"
-  #   #             class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent ark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
+  #   #             class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
   #   #         peer-focus:text-xs
   #   #         peer-focus:-translate-y-1.5
   #   #         peer-focus:text-gray-500
@@ -291,7 +291,7 @@ defmodule Input do
       "basic" ->
         ~H"""
         <div class="relative" phx-feedback-for={@name}>
-          <label for={@id} class="block mb-2 text-sm font-medium ark:text-white"><%= @label %></label>
+          <label for={@id} class="block mb-2 text-sm font-medium dark:text-white"><%= @label %></label>
           <textarea
             id={@id || @name}
             name={@name}
@@ -356,13 +356,13 @@ defmodule Input do
         # "gray" ->
         #   ~H"""
         #   <div phx-feedback-for={@name} class="relative">
-        #     <label class="block mb-2 text-sm font-medium ark:text-white" for={@id}><%= @label %></label>
+        #     <label class="block mb-2 text-sm font-medium dark:text-white" for={@id}><%= @label %></label>
 
         #     <textarea
         #       id={@id}
         #       name={@name}
         #       class={[
-        #         "py-3 px-4 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ark:bg-gray-700 ark:border-transparent ark:text-gray-400 ark:focus:ring-gray-600 #{assigns.class}",
+        #         "py-3 px-4 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-700 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600 #{assigns.class}",
         #         @errors == [] && @no_error_classes,
         #         @errors != [] && @error_classes
         #       ]}
@@ -380,7 +380,7 @@ defmodule Input do
         #       name={@name}
         #       placeholder={@placeholder}
         #       class={[
-        #         "w-full block py-3 text-sm bg-transparent border-b-2 peer  border-t-transparent border-x-transparent border-b-gray-200 focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 ark:border-b-gray-700 ark:text-gray-400 ark:focus:ring-gray-600 ark:focus:border-b-gray-600 #{assigns.class}",
+        #         "w-full block py-3 text-sm bg-transparent border-b-2 peer  border-t-transparent border-x-transparent border-b-gray-200 focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 dark:border-b-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 dark:focus:border-b-gray-600 #{assigns.class}",
         #         @errors == [] && @no_error_classes,
         #         @errors != [] && @error_classes
         #       ]}
@@ -395,7 +395,7 @@ defmodule Input do
         #       id={@id}
         #       {@rest}
         #       name={@name}
-        #       class={"peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ark:bg-slate-900 ark:border-gray-700 ark:text-gray-400 ark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class} #{error_classes(assigns)}"}
+        #       class={"peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class} #{error_classes(assigns)}"}
         #       placeholder={@placeholder}
         #     > <%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
         #     <label
@@ -414,12 +414,12 @@ defmodule Input do
         #       id={@id}
         #       {@rest}
         #       name={@name}
-        #       class={"peer p-4 block w-full bg-gray-100 border-transparent rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ark:bg-gray-700 ark:border-transparent ark:text-gray-400 ark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class} #{error_classes(assigns)}"}
+        #       class={"peer p-4 block w-full bg-gray-100 border-transparent rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-700 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class} #{error_classes(assigns)}"}
         #       placeholder={@placeholder}
         #     > <%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
         #     <label
         #       for={@id}
-        #       class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent ark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
+        #       class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
         #     >
         #       <%= @label %>
         #     </label>
@@ -433,12 +433,12 @@ defmodule Input do
         #       id={@id}
         #       {@rest}
         #       name={@name}
-        #       class={"peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none ark:border-b-gray-700 ark:text-gray-400 ark:focus:ring-gray-600 ark:focus:border-b-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class} #{error_classes(assigns)}"}
+        #       class={"peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 dark:focus:border-b-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class} #{error_classes(assigns)}"}
         #       placeholder={@placeholder}
         #     ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
         #     <label
         #       for={@id}
-        #       class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent ark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
+        #       class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
         #     >
         #       <%= @label %>
         #     </label>
@@ -451,14 +451,14 @@ defmodule Input do
     ~H"""
     <div class="flex" phx-feedback-for={@name}>
       <%!-- <input type="hidden" name={@name} value="false" /> --%>
-      <label class="text-sm text-gray-500 ms-3 ark:text-gray-400">
+      <label class="text-sm text-gray-500 ms-3 dark:text-gray-400">
         <input
           type="checkbox"
           id={@id}
           name={@name}
           value="true"
           checked={@checked}
-          class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ark:bg-gray-800 ark:border-gray-700 ark:checked:bg-blue-500 ark:checked:border-blue-500 ark:focus:ring-offset-gray-800"
+          class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
           {@rest}
         />
         <%= @label %>
@@ -473,7 +473,7 @@ defmodule Input do
       "basic" ->
         ~H"""
         <div phx-feedback-for={@name}>
-          <label for={@id} class="block mb-2 text-sm font-medium ark:text-white"><%= @label %></label>
+          <label for={@id} class="block mb-2 text-sm font-medium dark:text-white"><%= @label %></label>
           <div class="relative">
             <input
               type={@type}
@@ -482,7 +482,7 @@ defmodule Input do
               value={Phoenix.HTML.Form.normalize_value(@type, @value)}
               {@rest}
               class={[
-                "py-3 px-4 block w-full rounded-lg text-sm ark:bg-gray-800 ark:border-gray-700 ark:text-gray-400 phx-no-feedback:border-gray-300 phx-no-feedback:focus:border-blue-500 phx-no-feedback:focus:ring-blue-500 #{assigns.class}",
+                "py-3 px-4 block w-full rounded-lg text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 phx-no-feedback:border-gray-300 phx-no-feedback:focus:border-blue-500 phx-no-feedback:focus:ring-blue-500 #{assigns.class}",
                 @errors == [] &&
                   @no_error_classes,
                 @errors != [] &&
@@ -541,7 +541,7 @@ defmodule Input do
       "gray" ->
         ~H"""
         <div phx-feedback-for={@name}>
-          <label class="block mb-2 text-sm font-medium ark:text-white" for={@id}><%= @label %></label>
+          <label class="block mb-2 text-sm font-medium dark:text-white" for={@id}><%= @label %></label>
           <div class="relative">
             <input
               value={Phoenix.HTML.Form.normalize_value(@type, @value)}
@@ -549,7 +549,7 @@ defmodule Input do
               name={@name}
               type={@type}
               class={[
-                "w-full block px-4 py-3 text-sm border-transparent rounded-lg focus:ring-0 phx-no-feedback:focus:border-blue-500 phx-no-feedback:focus:ring-blue-500 phx-no-feedback:bg-gray-100 ark:bg-gray-700 ark:text-gray-400 ark:focus:ring-gray-600 #{assigns.class}",
+                "w-full block px-4 py-3 text-sm border-transparent rounded-lg focus:ring-0 phx-no-feedback:focus:border-blue-500 phx-no-feedback:focus:ring-blue-500 phx-no-feedback:bg-gray-100 dark:bg-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 #{assigns.class}",
                 @icon && "ps-11",
                 @errors == [] &&
                   "bg-green-100/75",
@@ -625,7 +625,7 @@ defmodule Input do
             name={@name}
             type={@type}
             class={[
-              "w-full block py-3 text-sm bg-transparent border-b-2 peer pe-0 ps-8 border-t-transparent border-x-transparent phx-no-feedback:border-b-gray-200 focus:border-t-transparent focus:border-x-transparent phx-no-feedback:focus:border-b-blue-500 focus:ring-0 ark:border-b-gray-700 ark:text-gray-400 ark:focus:ring-gray-600 ark:focus:border-b-gray-600 #{assigns.class}",
+              "w-full block py-3 text-sm bg-transparent border-b-2 peer pe-0 ps-8 border-t-transparent border-x-transparent phx-no-feedback:border-b-gray-200 focus:border-t-transparent focus:border-x-transparent phx-no-feedback:focus:border-b-blue-500 focus:ring-0 dark:border-b-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 dark:focus:border-b-gray-600 #{assigns.class}",
               @errors == [] &&
                 "bg-green-100/75 border-b-green-300",
               @errors != [] &&
@@ -697,7 +697,7 @@ defmodule Input do
               type={@type}
               placeholder={@placeholder}
               class={[
-                "peer p-4 block w-full border-1 focus:ring-0 phx-no-feedback:border-gray-200 phx-no-feedback:bg-white rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 ark:bg-slate-900 ark:border-gray-700 ark:text-gray-400 ark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class}",
+                "peer p-4 block w-full border-1 focus:ring-0 phx-no-feedback:border-gray-200 phx-no-feedback:bg-white rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class}",
                 @errors == [] &&
                   "border-green-500",
                 @errors != [] &&
@@ -706,7 +706,7 @@ defmodule Input do
             />
             <label
               for={@id}
-              class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent ark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
+              class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
             >
               <%= @label %>
             </label>
@@ -771,7 +771,7 @@ defmodule Input do
               type={@type}
               placeholder={@placeholder}
               class={[
-                "peer p-4 block w-full bg-gray-100 border-transparent rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ark:bg-gray-700 ark:border-transparent ark:text-gray-400 ark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class}",
+                "peer p-4 block w-full bg-gray-100 border-transparent rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-700 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class}",
                 @errors == [] &&
                   "bg-green-100/75",
                 @errors != [] &&
@@ -780,7 +780,7 @@ defmodule Input do
             />
             <label
               for={@id}
-              class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent ark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
+              class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
             >
               <%= @label %>
             </label>
@@ -845,7 +845,7 @@ defmodule Input do
               type={@type}
               placeholder={@placeholder}
               class={[
-                "peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none ark:border-b-gray-700 ark:text-gray-400 ark:focus:ring-gray-600 ark:focus:border-b-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class}",
+                "peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 dark:focus:border-b-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class}",
                 @errors == [] &&
                   "border-b-green-500",
                 @errors != [] &&
@@ -854,7 +854,7 @@ defmodule Input do
             />
             <label
               for={@id}
-              class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent ark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
+              class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
             >
               <%= @label %>
             </label>

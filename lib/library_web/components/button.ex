@@ -96,19 +96,19 @@ defmodule Button do
       "primary" ->
         case variant do
           "solid" ->
-            "bg-primary/90 text-white hover:bg-primary ark:bg-white ark:text-gray-800"
+            "bg-primary/90 text-white hover:bg-primary dark:bg-white dark:text-gray-800"
 
           "outline" ->
-            "text-gray-500 border border-gray-300 hover:border-primary hover:text-primary ark:border-gray-700 ark:text-gray-400 ark:hover:text-primary ark:hover:border-blue-600 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-gray-500 border border-gray-300 hover:border-primary hover:text-primary dark:border-gray-700 dark:text-gray-400 dark:hover:text-primary dark:hover:border-blue-600 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "soft" ->
-            "bg-primary/25 text-primary hover:bg-primary/40 ark:hover:bg-blue-900 ark:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "bg-primary/25 text-primary hover:bg-primary/40 dark:hover:bg-blue-900 dark:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "white" ->
-            "border border-gray-300 bg-white text-primary shadow-sm hover:bg-gray-50 ark:bg-slate-900 ark:border-gray-700 ark:text-white ark:hover:bg-gray-800 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "border border-gray-300 bg-white text-primary shadow-sm hover:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "ghost" ->
-            "text-primary hover:bg-primary/40 hover:text-blue-800 ark:text-blue-500 ark:hover:bg-blue-800/30 ark:hover:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-primary hover:bg-primary/40 hover:text-blue-800 dark:text-blue-500 dark:hover:bg-blue-800/30 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "shadow" ->
             "bg-primary shadow-md shadow-primary hover:shadow-primary hover:shadow-lg text-white"
@@ -117,19 +117,19 @@ defmodule Button do
       "secondary" ->
         case variant do
           "solid" ->
-            "bg-secondary/90 text-white hover:bg-secondary ark:bg-white ark:text-gray-800"
+            "bg-secondary/90 text-white hover:bg-secondary dark:bg-white dark:text-gray-800"
 
           "outline" ->
-            "text-gray-500 border border-gray-300 hover:border-secondary hover:text-secondary ark:border-gray-700 ark:text-gray-400 ark:hover:text-primary ark:hover:border-blue-600 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-gray-500 border border-gray-300 hover:border-secondary hover:text-secondary dark:border-gray-700 dark:text-gray-400 dark:hover:text-primary dark:hover:border-blue-600 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "soft" ->
-            "bg-secondary/25 text-secondary hover:bg-secondary/40 ark:hover:bg-blue-900 ark:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "bg-secondary/25 text-secondary hover:bg-secondary/40 dark:hover:bg-blue-900 dark:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "white" ->
-            "border border-gray-300 bg-white text-secondary shadow-sm hover:bg-gray-50 ark:bg-slate-900 ark:border-gray-700 ark:text-white ark:hover:bg-gray-800 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "border border-gray-300 bg-white text-secondary shadow-sm hover:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "ghost" ->
-            "text-secondary hover:bg-secondary/40 hover:text-blue-800 ark:text-blue-500 ark:hover:bg-blue-800/30 ark:hover:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-secondary hover:bg-secondary/40 hover:text-blue-800 dark:text-blue-500 dark:hover:bg-blue-800/30 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "shadow" ->
             "bg-secondary shadow-md shadow-secondary hover:shadow-secondary hover:shadow-lg text-white"
@@ -141,16 +141,16 @@ defmodule Button do
             "text-white bg-success hover:bg-green-600"
 
           "outline" ->
-            "text-gray-500 border border-gray-300 hover:border-success hover:text-success ark:border-gray-700 ark:text-gray-400 ark:hover:text-primary ark:hover:border-blue-600 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-gray-500 border border-gray-300 hover:border-success hover:text-success dark:border-gray-700 dark:text-gray-400 dark:hover:text-primary dark:hover:border-blue-600 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "soft" ->
-            "bg-success/25 text-success hover:bg-success/40 ark:hover:bg-blue-900 ark:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "bg-success/25 text-success hover:bg-success/40 dark:hover:bg-blue-900 dark:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "white" ->
-            "border border-gray-300 bg-white text-success shadow-sm hover:bg-gray-50 ark:bg-slate-900 ark:border-gray-700 ark:text-white ark:hover:bg-gray-800 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "border border-gray-300 bg-white text-success shadow-sm hover:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "ghost" ->
-            "text-success hover:bg-success/40 hover:text-blue-800 ark:text-blue-500 ark:hover:bg-blue-800/30 ark:hover:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-success hover:bg-success/40 hover:text-blue-800 dark:text-blue-500 dark:hover:bg-blue-800/30 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "shadow" ->
             "bg-success shadow-md shadow-success hover:shadow-success hover:shadow-lg text-white"
@@ -162,16 +162,16 @@ defmodule Button do
             "text-white bg-warning hover:bg-yellow-600"
 
           "outline" ->
-            "text-gray-500 border border-gray-300 hover:border-warning hover:text-warning ark:border-gray-700 ark:text-gray-400 ark:hover:text-primary ark:hover:border-blue-600 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-gray-500 border border-gray-300 hover:border-warning hover:text-warning dark:border-gray-700 dark:text-gray-400 dark:hover:text-primary dark:hover:border-blue-600 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "soft" ->
-            "bg-warning/25 text-warning hover:bg-warning/40 ark:hover:bg-blue-900 ark:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "bg-warning/25 text-warning hover:bg-warning/40 dark:hover:bg-blue-900 dark:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "white" ->
-            "border border-gray-300 bg-white text-warning shadow-sm hover:bg-gray-50 ark:bg-slate-900 ark:border-gray-700 ark:text-white ark:hover:bg-gray-800 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "border border-gray-300 bg-white text-warning shadow-sm hover:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "ghost" ->
-            "text-warning hover:bg-warning/40 hover:text-blue-800 ark:text-blue-500 ark:hover:bg-blue-800/30 ark:hover:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-warning hover:bg-warning/40 hover:text-blue-800 dark:text-blue-500 dark:hover:bg-blue-800/30 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "shadow" ->
             "bg-warning shadow-md shadow-warning hover:shadow-warning hover:shadow-lg text-white"
@@ -183,16 +183,16 @@ defmodule Button do
             "text-white bg-danger hover:bg-red-600"
 
           "outline" ->
-            "text-gray-500 border border-gray-300 hover:border-danger hover:text-danger ark:border-gray-700 ark:text-gray-400 ark:hover:text-primary ark:hover:border-blue-600 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-gray-500 border border-gray-300 hover:border-danger hover:text-danger dark:border-gray-700 dark:text-gray-400 dark:hover:text-primary dark:hover:border-blue-600 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "soft" ->
-            "bg-danger/25 text-danger hover:bg-danger/40 ark:hover:bg-blue-900 ark:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "bg-danger/25 text-danger hover:bg-danger/40 dark:hover:bg-blue-900 dark:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "white" ->
-            "border border-gray-300 bg-white text-danger shadow-sm hover:bg-gray-50 ark:bg-slate-900 ark:border-gray-700 ark:text-white ark:hover:bg-gray-800 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "border border-gray-300 bg-white text-danger shadow-sm hover:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "ghost" ->
-            "text-danger hover:bg-danger/40 hover:text-blue-800 ark:text-blue-500 ark:hover:bg-blue-800/30 ark:hover:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-danger hover:bg-danger/40 hover:text-blue-800 dark:text-blue-500 dark:hover:bg-blue-800/30 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "shadow" ->
             "bg-danger shadow-md shadow-danger hover:shadow-danger hover:shadow-lg text-white"
@@ -204,16 +204,16 @@ defmodule Button do
             "text-white bg-gray-900"
 
           "outline" ->
-            "text-gray-900 border border-gray-900 ark:border-gray-700 ark:text-gray-400 ark:hover:text-default ark:hover:border-blue-600 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-gray-900 border border-gray-900 dark:border-gray-700 dark:text-gray-400 dark:hover:text-default dark:hover:border-blue-600 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "soft" ->
-            "text-gray-900 bg-gray-100 hover:bg-gray-200 ark:hover:bg-blue-900 ark:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-gray-900 bg-gray-100 hover:bg-gray-200 dark:hover:bg-blue-900 dark:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "white" ->
-            "border border-gray-200 bg-white text-gray-900 shadow-sm hover:bg-gray-100 ark:bg-slate-900 ark:border-gray-700 ark:text-white ark:hover:bg-gray-800 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "border border-gray-200 bg-white text-gray-900 shadow-sm hover:bg-gray-100 dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "ghost" ->
-            "text-gray-900 hover:bg-gray-200 ark:text-blue-500 ark:hover:bg-blue-800/30 ark:hover:text-blue-400 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+            "text-gray-900 hover:bg-gray-200 dark:text-blue-500 dark:hover:bg-blue-800/30 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 
           "shadow" ->
             "bg-gray-900 shadow-md shadow-gray-900/50 hover:shadow-lg text-gray-100"

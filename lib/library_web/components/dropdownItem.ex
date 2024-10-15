@@ -16,7 +16,7 @@ defmodule DropdownItem do
   def(dropdownItem(assigns = %{type: "title"})) do
     ~H"""
     <span
-      class="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400 ark:text-neutral-500"
+      class="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400 dark:text-neutral-500"
       {@rest}
     >
       <%= @label %>
@@ -26,10 +26,10 @@ defmodule DropdownItem do
 
   def dropdownItem(assigns = %{type: "custom"}) do
     ~H"""
-    <div class="py-3 px-4 border-b border-gray-200 ark:border-neutral-700" {@rest}>
+    <div class="py-3 px-4 border-b border-gray-200 dark:border-neutral-700" {@rest}>
       <%= render_slot(@inner_block) %>
-      <p class="text-sm text-gray-500 ark:text-neutral-400">Signed in as</p>
-      <p class="text-sm font-medium text-gray-800 ark:text-neutral-300">james@site.com</p>
+      <p class="text-sm text-gray-500 dark:text-neutral-400">Signed in as</p>
+      <p class="text-sm font-medium text-gray-800 dark:text-neutral-300">james@site.com</p>
     </div>
     """
   end
@@ -37,7 +37,7 @@ defmodule DropdownItem do
   def dropdownItem(assigns) do
     ~H"""
     <.link
-      class={"flex items-center justify-between gap-x-8 py-2 px-3 rounded-lg text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 ark:text-neutral-400 ark:hover:bg-neutral-700 ark:hover:text-neutral-300 ark:focus:bg-neutral-700 #{@class}"}
+      class={"flex items-center justify-between gap-x-8 py-2 px-3 rounded-lg text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 #{@class}"}
       {@rest}
     >
       <div>
@@ -51,7 +51,7 @@ defmodule DropdownItem do
 
       <kbd
         :if={@kbd}
-        class="inline-flex items-center font-mono text-xs text-gray-400 ark:text-neutral-600"
+        class="inline-flex items-center font-mono text-xs text-gray-400 dark:text-neutral-600"
       >
         <%= @kbd %>
       </kbd>

@@ -18,7 +18,7 @@ defmodule Dropdown do
     >
       <%= render_slot(@trigger) %>
       <div
-        class="hidden absolute top-12 w-auto bg-white shadow-md rounded-lg mt-2 ark:bg-neutral-800 ark:border ark:border-neutral-700 ark:divide-neutral-700"
+        class="hidden absolute top-12 w-auto bg-white shadow-md rounded-lg mt-2 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"
         role="menu"
         aria-orientation="vertical"
       >

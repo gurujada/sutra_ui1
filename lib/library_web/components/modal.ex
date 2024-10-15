@@ -79,17 +79,17 @@ defmodule Modal do
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
               class="relative hidden transition duration-500 bg-white shadow-lg shadow-zinc-700/10 ring-zinc-700/10 rounded-2xl ring-1
-              flex flex-col border shadow-sm rounded-xl pointer-events-auto ark:bg-gray-800 ark:border-gray-700 ark:shadow-slate-700/[.7]
+              flex flex-col border shadow-sm rounded-xl pointer-events-auto dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]
               "
             >
-              <div class="flex items-center justify-between px-4 py-3 border-b ark:border-gray-700">
-                <h3 class="font-bold text-gray-800 ark:text-white">
+              <div class="flex items-center justify-between px-4 py-3 border-b dark:border-gray-700">
+                <h3 class="font-bold text-gray-800 dark:text-white">
                   <%= render_slot(@modal_header) %>
                 </h3>
                 <button
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
                   type="button"
-                  class="flex items-center justify-center text-sm font-semibold text-gray-600 border border-transparent rounded-full focus:outline-none size-7 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none ark:text-white ark:hover:bg-gray-700 ark:focus:outline-none ark:focus:ring-1 ark:focus:ring-gray-600"
+                  class="flex items-center justify-center text-sm font-semibold text-gray-600 border border-transparent rounded-full focus:outline-none size-7 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
                   <span class="sr-only">Close</span>
                   <svg
@@ -115,7 +115,7 @@ defmodule Modal do
                 <%= render_slot(@modal_content) %>
               </div>
               <div class={[
-                "flex items-center justify-end px-4 py-3 border-t gap-x-2 ark:border-gray-700",
+                "flex items-center justify-end px-4 py-3 border-t gap-x-2 dark:border-gray-700",
                 Map.has_key?(hd(@modal_footer), :class) && hd(@modal_footer).class
               ]}>
                 <%= render_slot(@modal_footer) %>
