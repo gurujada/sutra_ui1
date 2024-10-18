@@ -1,0 +1,136 @@
+<section>
+  <h1 class="text-2xl">Dropdown</h1>
+  <p class="text-gray-600">
+    Pass dropdown-toggle to the button and dropdown-icon to the icon. Additionally, pass transition, duration to the icon if you want to rotate it. Dont pass the icon at all if you dont want it.
+  </p>
+
+  <Dropdown.dropdown>
+    <:trigger>
+      <button
+        phx-hook="Tooltip"
+        data-tippy-content="Hi"
+        id="dropdown-button1"
+        type="button"
+        class=" py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+        aria-haspopup="menu"
+        aria-expanded="false"
+        aria-label="Dropdown"
+      >
+        Actions
+        <svg
+          id="dropdown-icon1"
+          class="transition duration-300 size-4"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+    </:trigger>
+
+    <:content>
+      <DropdownItem.dropdownItem type="custom" label="Newsletter">
+        <h1>Heading</h1>
+      </DropdownItem.dropdownItem>
+      <div class="p-1 space-y-0.5">
+        <DropdownItem.dropdownItem type="title" label="Newsletter" />
+        <DropdownItem.dropdownItem label="Newsletter" />
+      </div>
+
+      <div class="p-1 space-y-0.5">
+        <DropdownItem.dropdownItem
+          icon="hero-exclamation-circle-mini"
+          label="Newsletter"
+          class="hover:text-red-500"
+          patch={~p"/"}
+        />
+        <DropdownItem.dropdownItem icon="hero-beaker" label="Newsletter" />
+      </div>
+      <div class="p-1 space-y-0.5">
+        <DropdownItem.dropdownItem type="title" label="Contacts" />
+        <%!-- <DropdownItem.dropdownItem kbd="shift + ," icon="hero-beaker" label="Newsletter" /> --%>
+        <DropdownItem.dropdownItem icon="hero-beaker" label="Newsletter" />
+      </div>
+    </:content>
+  </Dropdown.dropdown>
+</section>
+
+<section class="my-16">
+  <h1 class="text-2xl">Tabs</h1>
+  <p class="text-gray-600">Tabs make it easy to switch between different views.</p>
+  <.live_component module={Tabs} active_tab={@active_tab} id="1">
+    <:tab name="Home" icon="hero-home" badge="9" class="">
+      <div id="tabs-with-underline-1" role="tabpanel" aria-labelledby="tabs-with-underline-item-1">
+        <p class="text-gray-500 dark:text-neutral-400">
+          This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">first</em>
+          item's tab body.
+        </p>
+      </div>
+    </:tab>
+    <:tab name="Profile" icon="hero-user">
+      <div
+        id="tabs-with-underline-2"
+        class=""
+        role="tabpanel"
+        aria-labelledby="tabs-with-underline-item-2"
+      >
+        <p class="text-gray-500 dark:text-neutral-400">
+          This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">second</em>
+          item's tab body.
+        </p>
+      </div>
+    </:tab>
+    <:tab name="Settings" icon="hero-cog-6-tooth" badge="50+">
+      <div
+        id="tabs-with-underline-3"
+        class=""
+        role="tabpanel"
+        aria-labelledby="tabs-with-underline-item-3"
+      >
+        <p class="text-gray-500 dark:text-neutral-400">
+          This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">third</em>
+          item's tab body.
+        </p>
+      </div>
+    </:tab>
+
+    <:tab name="Submarines">
+      <div
+        id="tabs-with-underline-4"
+        class=""
+        role="tabpanel"
+        aria-labelledby="tabs-with-underline-item-3"
+      >
+        <p class="text-gray-500 dark:text-neutral-400">
+          This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">fourth</em>
+          item's tab body.
+        </p>
+      </div>
+    </:tab>
+  </.live_component>
+</section>
+
+<section class="my-16">
+  <h1 class="text-2xl">Breadcrumb</h1>
+  <Breadcrumb.breadcrumb
+    separator="slash"
+    class=""
+    links={[
+      %{
+        label: "Link 1",
+        to: "https://www.virinchi.me",
+        icon: "hero-building-office-2"
+      },
+      %{label: "Link 2", to: "/", icon: "hero-beaker"},
+      %{label: "Link 3", to: "", icon: "hero-beaker"},
+      %{label: "Link 4", to: "", icon: "hero-beaker"}
+    ]}
+  />
+</section>

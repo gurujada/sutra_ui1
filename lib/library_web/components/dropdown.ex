@@ -1,7 +1,7 @@
 defmodule Dropdown do
   use Phoenix.Component
   slot :content, required: true
-  slot :trigger, requirded: true
+  slot :trigger, required: true
   attr :class, :string, default: ""
 
   attr :rest, :global,
