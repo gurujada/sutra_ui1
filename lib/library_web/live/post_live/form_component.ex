@@ -19,10 +19,10 @@ defmodule LibraryWeb.PostLive.FormComponent do
         name="form"
         phx-submit="save"
       >
-        <Input.input variant="gray" icon="hero-user" helper="We'll never share your details" hint="Optional"
+        <Input.input icon="hero-user" placeholder="Email"
           field={@form[:body]}
           placeholder="Body"
-          phx-debounce="500"
+          phx-debounce="300"
           type="text"
           label="Body"
         >
