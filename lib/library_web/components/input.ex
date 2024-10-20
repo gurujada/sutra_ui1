@@ -46,7 +46,8 @@ defmodule Input do
   attr :msg, :string, default: "Looks good!"
   attr :hint, :string, default: ""
   attr :used, :boolean, default: false
-
+  attr :prefix, :string, default: nil
+  attr :suffix, :map, default: nil
   def input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
     errors = if Phoenix.Component.used_input?(field), do: field.errors, else: []
     assigns
@@ -245,66 +246,78 @@ defmodule Input do
     ~H"""
     <div>
       <label for={@id} class="block mb-2 text-sm font-medium dark:text-white"><%= @label %></label>
-      <div class="relative">
-        <input
-          type={@type}
-          name={@name}
-          id={@id}
-          value={Phoenix.HTML.Form.normalize_value(@type, @value)}
-          {@rest}
-          placeholder={@placeholder}
-          class={[
-            "py-3 px-4 block w-full rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500
-            dark:focus:ring-neutral-600 dark:border-neutral-700 border-gray-200 focus:border-blue-500 focus:ring-blue-500 #{@class}",
-            (@errors == [] && @used) &&
-              "border-red-500 focus:border-red-500 focus:ring-red-500",
-            @errors != [] && "border-teal-500 focus:border-teal-500 focus:ring-teal-500"
+     <div class="flex rounded-lg w-full">
+     <div class="md:px-4 px-2 inline-flex items-center min-w-fit rounded-s-md border border-e-0 border-gray-200 bg-gray-50 dark:bg-neutral-700 dark:border-neutral-600">
+             <span class="text-xs md:text-sm text-gray-500 dark:text-neutral-400"> <%= @prefix %> </span>
+           </div>
+     <div class="relative w-full">
+       <input
+         type={@type}
+         name={@name}
+         id={@id}
+         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
+         {@rest}
+         placeholder={@placeholder}
+         class={[
+           "py-3 px-4 block w-full rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500
+           dark:focus:ring-neutral-600 dark:border-neutral-700 border-gray-200 focus:border-blue-500 focus:ring-blue-500 #{@class}",
+           @errors != [] &&
+             "border-red-500 focus:border-red-500 focus:ring-red-500",
+           (@errors == [] && @used) && "border-teal-500 focus:border-teal-500 focus:ring-teal-500", @icon != "hero-" && "sm:ps-11", @prefix && "!rounded-l-none",
+           @suffix && "!rounded-r-none"
+         ]}
+       />
+       <div class="hidden absolute inset-y-0 start-0 sm:flex items-center pointer-events-none z-20 ps-4" >
+               <LibraryWeb.CoreComponents.icon name={@icon} class="shrink-0 h-4 w-4 text-gray-400 dark:text-neutral-600" />
+             </div>
+       <div
+         :if={@errors != []}
+         class="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3"
+       >
+         <svg
+           class="flex-shrink-0 w-5 h-5 text-red-500"
+           xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 24 24"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+         >
+           <circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line
+             x1="12"
+             x2="12.01"
+             y1="16"
+             y2="16"
+           />
+         </svg>
+       </div>
 
-          ]}
-        />
-        <div
-          :if={@errors != []}
-          class="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3"
-        >
-          <svg
-            class="flex-shrink-0 w-5 h-5 text-red-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line
-              x1="12"
-              x2="12.01"
-              y1="16"
-              y2="16"
-            />
-          </svg>
-        </div>
-
-        <div
-          :if={@errors == [] && @used}
-          class="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3"
-        >
-          <svg
-            class="flex-shrink-0 w-4 h-4 text-teal-500"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-        </div>
+       <div
+         :if={@errors == [] && @used}
+         class="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3"
+       >
+         <svg
+           class="flex-shrink-0 w-4 h-4 text-teal-500"
+           xmlns="http://www.w3.org/2000/svg"
+           width="24"
+           height="24"
+           viewBox="0 0 24 24"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+         >
+           <polyline points="20 6 9 17 4 12" />
+         </svg>
+       </div>
+     </div>
+     <.link :if={@suffix} patch={@suffix.navigate} class="px-1 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+     <LibraryWeb.CoreComponents.icon :if={Map.has_key?(@suffix, :icon)} name={@suffix.icon} class="shrink-0 h-4 w-4" /> <%= if Map.has_key?(@suffix, :label), do: @suffix.label %>
+           </.link>
       </div>
+
       <Error.error :for={msg <- @errors}>
         <%= msg %>
       </Error.error>

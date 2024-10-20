@@ -19,12 +19,23 @@ defmodule LibraryWeb.PostLive.FormComponent do
         name="form"
         phx-submit="save"
       >
-        <Input.input icon="hero-user" placeholder="Email"
+        <Input.input icon="hero-user"
+        placeholder="Email"
           field={@form[:body]}
           placeholder="Body"
           phx-debounce="300"
           type="text"
+
+          suffix={
+            %{
+              icon: "hero-beaker",
+              to: "https://www.virinchi.me",
+              query: "",
+              # label: "Search",
+              navigate: "/posts"
+            }}
           label="Body"
+          prefix="https://"
         >
 
         </Input.input>
