@@ -59,184 +59,65 @@ defmodule Input do
     |> input()
   end
 
-  def input(%{type: "textarea"} = assigns) do
-    case assigns.variant do
-      "basic" ->
-        ~H"""
-        <div class="relative"
-        >
-          <label for={@id} class="block mb-2 text-sm font-medium dark:text-white"><%= @label %></label>
-          <textarea
-            id={@id || @name}
-            name={@name}
-            class={[
-              "min-h-[6rem] py-3 px-4 block w-full rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none border-gray-300 #{@class}",
-              @errors == [] && @no_error_classes,
-              @errors != [] && @error_classes
-            ]}
-            {@rest}
-          ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
-          <LibraryWeb.CoreComponents.error :for={msg <- @errors}>
-            <%= msg %>
-          </LibraryWeb.CoreComponents.error>
+  def input(%{type: "checkbox", value: value} = assigns) do
+    assigns =
+      assign_new(assigns, :checked, fn -> Phoenix.HTML.Form.normalize_value("checkbox", value) end)
 
-          <div
-            :if={@errors == []}
-            class="absolute flex items-center p-3 pointer-events-none bottom-8 right-4 end-2"
-          >
-            <svg
-              class="flex-shrink-0 w-5 h-5 text-red-500"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line
-                x1="12"
-                x2="12.01"
-                y1="16"
-                y2="16"
-              />
-            </svg>
-          </div>
-
-          <div
-            :if={@errors != []}
-            class="absolute top-0 flex items-center p-3 pointer-events-none end-0"
-          >
-            <svg
-              class="flex-shrink-0 w-4 h-4 text-teal-500"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-          </div>
-        </div>
-        """
-
-      _ ->
-        ""
-        # "gray" ->
-        #   ~H"""
-        #   <div phx-feedback-for={@name} class="relative">
-        #     <label class="block mb-2 text-sm font-medium dark:text-white" for={@id}><%= @label %></label>
-
-        #     <textarea
-        #       id={@id}
-        #       name={@name}
-        #       class={[
-        #         "py-3 px-4 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-700 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600 #{assigns.class}",
-        #         @errors == [] && @no_error_classes,
-        #         @errors != [] && @error_classes
-        #       ]}
-        #       placeholder={@placeholder}
-        #     > <%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
-        #   </div>
-        #   """
-
-        # "underline" ->
-        #   ~H"""
-        #   <div phx-feedback-for={@name} class="relative">
-        #     <textarea
-        #       id={@id}
-        #       {@rest}
-        #       name={@name}
-        #       placeholder={@placeholder}
-        #       class={[
-        #         "w-full block py-3 text-sm bg-transparent border-b-2 peer  border-t-transparent border-x-transparent border-b-gray-200 focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 dark:border-b-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 dark:focus:border-b-gray-600 #{assigns.class}",
-        #         @errors == [] && @no_error_classes,
-        #         @errors != [] && @error_classes
-        #       ]}
-        #     ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
-        #   </div>
-        #   """
-
-        # "floating-basic" ->
-        #   ~H"""
-        #   <div phx-feedback-for={@name} class="relative">
-        #     <textarea
-        #       id={@id}
-        #       {@rest}
-        #       name={@name}
-        #       class={"peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class} #{error_classes(assigns)}"}
-        #       placeholder={@placeholder}
-        #     > <%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
-        #     <label
-        #       for={@id}
-        #       class={"absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 #{error_classes(assigns)}"}
-        #     >
-        #       <%= @label %>
-        #     </label>
-        #   </div>
-        #   """
-
-        # "floating-gray" ->
-        #   ~H"""
-        #   <div phx-feedback-for={@name} class="relative">
-        #     <textarea
-        #       id={@id}
-        #       {@rest}
-        #       name={@name}
-        #       class={"peer p-4 block w-full bg-gray-100 border-transparent rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-700 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class} #{error_classes(assigns)}"}
-        #       placeholder={@placeholder}
-        #     > <%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
-        #     <label
-        #       for={@id}
-        #       class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
-        #     >
-        #       <%= @label %>
-        #     </label>
-        #   </div>
-        #   """
-
-        # "floating-underline" ->
-        #   ~H"""
-        #   <div class="relative">
-        #     <textarea
-        #       id={@id}
-        #       {@rest}
-        #       name={@name}
-        #       class={"peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 dark:focus:border-b-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2 #{assigns.class} #{error_classes(assigns)}"}
-        #       placeholder={@placeholder}
-        #     ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
-        #     <label
-        #       for={@id}
-        #       class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
-        #     >
-        #       <%= @label %>
-        #     </label>
-        #   </div>
-        #   """
-    end
-  end
-
-  def input(%{type: "checkbox"} = assigns) do
     ~H"""
-    <div class="flex">
-      <%!-- <input type="hidden" name={@name} value="false" /> --%>
-      <label class="text-sm text-gray-500 ms-3 dark:text-gray-400">
+    <div phx-feedback-for={@name}>
+      <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
+        <input type="hidden" name={@name} value="false" />
         <input
           type="checkbox"
           id={@id}
           name={@name}
           value="true"
           checked={@checked}
-          class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+          class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
           {@rest}
         />
         <%= @label %>
       </label>
+      <Error.error :for={msg <- @errors}><%= msg %></Error.error>
+    </div>
+    """
+  end
+
+  def input(%{type: "select"} = assigns) do
+    ~H"""
+    <div phx-feedback-for={@name}>
+      <%!-- <.label for={@id}><%= @label %></.label> --%>
+      <select
+        id={@id}
+        name={@name}
+        class="block w-full mt-2 bg-white border border-gray-300 rounded-md shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
+        multiple={@multiple}
+        {@rest}
+      >
+        <option :if={@prompt} value=""><%= @prompt %></option>
+        <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
+      </select>
+      <Error.error :for={msg <- @errors}><%= msg %></Error.error>
+    </div>
+    """
+  end
+
+
+  def input(%{type: "textarea"} = assigns) do
+    ~H"""
+    <div phx-feedback-for={@name}>
+      <%!-- <.label for={@id}><%= @label %></.label> --%>
+      <textarea
+        id={@id}
+        name={@name}
+        class={[
+          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
+          "min-h-[6rem] phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
+          @errors == [] && "border-zinc-300 focus:border-zinc-400",
+          @errors != [] && "border-rose-400 focus:border-rose-400"
+        ]}
+        {@rest}
+      ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
       <Error.error :for={msg <- @errors}><%= msg %></Error.error>
     </div>
     """
@@ -262,7 +143,7 @@ defmodule Input do
            "py-3 px-4 block w-full rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500
            dark:focus:ring-neutral-600 dark:border-neutral-700 border-gray-200 focus:border-blue-500 focus:ring-blue-500 #{@class}",
            @errors != [] &&
-             "border-red-500 focus:border-red-500 focus:ring-red-500",
+             "border-red-500 focus:border-red-500 focus:ring-red-300",
            (@errors == [] && @used) && "border-teal-500 focus:border-teal-500 focus:ring-teal-500", @icon != "hero-" && "sm:ps-11", @prefix && "!rounded-l-none",
            @suffix && "!rounded-r-none"
          ]}
