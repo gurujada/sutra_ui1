@@ -3,98 +3,103 @@ defmodule Avatar do
   This is documentation for the entire module
   """
   use Phoenix.Component
+  use Phoenix.VerifiedRoutes, endpoint: LibraryWeb.Endpoint, router: LibraryWeb.Router
 
   @doc """
   This is documentation for the avatar function
 
   <.avatar src="https://avatars.githubusercontent.com/u/10400064?v=4" />
-
   """
-
-  attr :size, :string, default: "md", values: ["xs", "sm", "md", "lg", "xl"]
-
-  attr :variant, :string,
-    default: "solid",
-    values: ["solid", "outline", "inverted", "shadow"]
-
-  attr :color, :string,
-    default: "gray-200",
-    values: ["primary", "secondary", "success", "warning", "danger", "gray-200"]
-
+  attr :size, :string, default: "md", values: ["xs", "sm", "md", "lg"]
   attr :class, :string, default: ""
-  attr :isBordered, :boolean, default: false
+  attr :border, :boolean, default: false
 
-  attr :src, :string, default: nil
-  attr :placeholder, :string, default: nil
-  attr :cond, :boolean, default: false
+  attr :src, :string, default: ""
+
+  attr :placeholder, :string,
+    default: nil,
+    doc: "The Name of the User to be shown if the src is empty"
+
+  attr :status, :boolean, default: false, doc: "The condition to show the avatar with a badge"
+  attr :rest, :global, doc: "he arbitrary HTML attributes that can be passed to the avatar"
+
+  attr :to, :string,
+    default: "#",
+    doc: "The path to patch the liveview to - most likely the user profile"
 
   def avatar(assigns) do
     ~H"""
     <div class="relative inline-block">
-      <%= if src_blank?(@src) && !@placeholder do %>
-        <div class={"flex border p-1.5 bg-gray-100 #{color_class(assigns[:color])} items-center justify-center rounded-full #{avatar_size_class(assigns[:size])}"}>
+      <.link patch={~p"/#{@to}"}>
+        <span
+          :if={@src == "" && !@placeholder}
+          {@rest}
+          class={"inline-block size-6 bg-gray-100 rounded-full overflow-hidden #{avatar_classes(@size, @class)}"}
+        >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
+            class="size-full text-gray-300"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
             fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
           >
+            <rect x="0.62854" y="0.359985" width="15" height="15" rx="7.5" fill="white"></rect>
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-            />
+              d="M8.12421 7.20374C9.21151 7.20374 10.093 6.32229 10.093 5.23499C10.093 4.14767 9.21151 3.26624 8.12421 3.26624C7.0369 3.26624 6.15546 4.14767 6.15546 5.23499C6.15546 6.32229 7.0369 7.20374 8.12421 7.20374Z"
+              fill="currentColor"
+            >
+            </path>
+            <path
+              d="M11.818 10.5975C10.2992 12.6412 7.42106 13.0631 5.37731 11.5537C5.01171 11.2818 4.69296 10.9631 4.42107 10.5975C4.28982 10.4006 4.27107 10.1475 4.37419 9.94123L4.51482 9.65059C4.84296 8.95684 5.53671 8.51624 6.30546 8.51624H9.95231C10.7023 8.51624 11.3867 8.94749 11.7242 9.62249L11.8742 9.93184C11.968 10.1475 11.9586 10.4006 11.818 10.5975Z"
+              fill="currentColor"
+            >
+            </path>
           </svg>
-        </div>
-      <% else %>
-        <%= if src_blank?(@src) && @placeholder do %>
-          <div class={"flex font-medium items-center justify-center text-lg #{color_class(assigns[:color])} rounded-full #{avatar_size_class(assigns[:size])}"}>
-            <%= generate_initials(@placeholder) %>
-          </div>
-        <% else %>
-          <img src={@src} class={get_avatar_classes(assigns)} />
-        <% end %>
-      <% end %>
-      <span :if={@cond} class="flex absolute top-1 end-1 h-3 w-3 -mt-1.5 -me-1.5">
-        <span class="absolute inline-flex w-full h-full rounded-full opacity-75 bg-amber-400 animate-ping dark:bg-red-600">
         </span>
-        <span class="relative inline-flex w-3 h-3 rounded-full bg-amber-500"></span>
-      </span>
+
+        <span
+          :if={@src == "" && @placeholder}
+          class="inline-flex items-center justify-center size-8 rounded-full bg-gray-500 text-xs font-semibold text-white leading-none"
+          {@rest}
+        >
+          <%= generate_initials(@placeholder) %>
+        </span>
+        <img :if={@src != ""} src={@src} class={avatar_classes(@size, @class)} {@rest} />
+
+        <span
+          :if={@status}
+          class={[
+            "absolute top-0 end-0 block #{status_size(@size)} rounded-full z-50 ring-2 ring-white bg-blue-400 dark:ring-neutral-900",
+            String.contains?(@class, "rounded") && "transform -translate-y-1/2 translate-x-1/2"
+          ]}
+        >
+        </span>
+      </.link>
     </div>
     """
   end
 
-  defp get_avatar_classes(assigns) do
+  defp avatar_classes(size, class) do
     # Include in the documentation that rounded-sm will superseed the rounded-full class
-    "rounded-full #{avatar_size_class(assigns[:size])} #{border_class(assigns[:isBordered])} #{color_class(assigns[:color])} #{assigns.class}"
+    "rounded-full inline-block ring-2 ring-white dark:ring-neutral-900 #{size(size)} #{class}"
   end
 
-  def avatar_size_class(size) do
+  def size(size) do
     case size do
-      "xs" -> "h-8 w-8"
-      "sm" -> "h-10 w-10"
-      "md" -> "h-11 w-11"
-      "lg" -> "h-12 w-12"
-      "xl" -> "h-14 w-14"
+      "xs" -> "size-8"
+      "sm" -> "size-[38px]"
+      "md" -> "size-[46px]"
+      "lg" -> "size-[62px]"
     end
   end
 
-  def color_class(color) do
-    case color do
-      "primary" -> "bg-primary border-primary"
-      "secondary" -> "bg-secondary border-secondary"
-      "success" -> "bg-success border-success"
-      "warning" -> "bg-warning border-warning"
-      "danger" -> "bg-danger border-danger"
-      "gray-200" -> "bg-gray-200 border-gray-200"
-      _ -> "bg-gray-200 border-gray-200"
-    end
-  end
-
-  def border_class(isBordered) do
-    case isBordered do
-      true -> "border-3"
-      _ -> ""
+  def status_size(size) do
+    case size do
+      "xs" -> "size-1.5"
+      "sm" -> "size-2.5"
+      "md" -> "size-3"
+      "lg" -> "size-3.5"
     end
   end
 
@@ -111,6 +116,4 @@ defmodule Avatar do
       String.upcase(initial1 <> initial2)
     end
   end
-
-  defp src_blank?(src), do: !src || src == ""
 end

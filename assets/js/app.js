@@ -104,8 +104,8 @@ Hooks.Tooltip = {
   mounted() {
     tippy(this.el.id ? `#${this.el.id}` : this.el.id, {
       arrow: true,
-      placement: "auto",
-      // duration: 0,
+      // placement: "auto-start",
+      duration: 0,
       allowHTML: true,
       onCreate: (instance) => {
         if (this.el.dataset.tippyClass) {

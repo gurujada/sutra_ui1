@@ -1,5 +1,6 @@
 defmodule LibraryWeb.PostLive.Index do
   use LibraryWeb, :live_view
+  use Phoenix.VerifiedRoutes, endpoint: LibraryWeb.Endpoint, router: LibraryWeb.Router
 
   alias Library.Timeline
   alias Library.Timeline.Post
