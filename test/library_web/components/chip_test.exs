@@ -1,87 +1,119 @@
-defmodule Library.ChipTest do
-  use ExUnit.Case, async: true
+defmodule ChipTest do
+  use ExUnit.Case
   import Phoenix.LiveViewTest
-  import Phoenix.Component
   import Chip
 
-  describe "basic chip tests" do
-    test "basic usage" do
-      assigns = %{}
+  describe "chip/1" do
+    test "renders basic chip with label" do
+      html =
+        render_component(&chip/1, %{
+          label: "Test Chip"
+        })
 
-      chip =
-        rendered_to_string(~H"""
-        <.chip>This is a chip!</.chip>
-        """)
-
-      assert chip =~ "This is a chip!"
+      assert html =~ "Test Chip"
+      assert html =~ ~s(class="inline-flex)
     end
 
-    test "arbitrary attributes" do
-      assigns = %{}
+    test "renders different variants correctly" do
+      variants = ["solid", "outline", "soft", "white"]
 
-      chip =
-        rendered_to_string(~H"""
-        <.chip class="bg-red-500">This is a chip!</.chip>
-        """)
+      for variant <- variants do
+        html =
+          render_component(&chip/1, %{
+            label: "Test Chip",
+            variant: variant
+          })
 
-      assert chip =~ "bg-red-500"
-    end
-  end
+        # Each variant should have specific classes
+        case variant do
+          "solid" ->
+            assert html =~ "bg-blue-600"
 
-  describe "chip size tests" do
-    test "chip size (xs)" do
-      assigns = %{}
+          "outline" ->
+            assert html =~ "border-blue-600"
 
-      chip =
-        rendered_to_string(~H"""
-        <.chip size="xs">Chip</.chip>
-        """)
+          "soft" ->
+            assert html =~ "bg-blue-100"
 
-      assert chip =~ "text-xs"
-    end
-
-    test "chip size (sm)" do
-      assigns = %{}
-
-      chip =
-        rendered_to_string(~H"""
-        <.chip size="sm">Chip</.chip>
-        """)
-
-      assert chip =~ "text-sm"
+          "white" ->
+            assert html =~ "bg-white"
+        end
+      end
     end
 
-    test "chip size (md)" do
-      assigns = %{}
+    test "renders with left icon" do
+      html =
+        render_component(&chip/1, %{
+          label: "Test Chip",
+          icon: %{name: "hero-user", position: "left"}
+        })
 
-      chip =
-        rendered_to_string(~H"""
-        <.chip>Chip</.chip>
-        """)
-
-      assert chip =~ "text-md"
+      assert html =~ "hero-user"
     end
 
-    test "chip size (lg)" do
-      assigns = %{}
+    test "renders with right icon" do
+      html =
+        render_component(&chip/1, %{
+          label: "Test Chip",
+          icon: %{name: "hero-user", position: "right"}
+        })
 
-      chip =
-        rendered_to_string(~H"""
-        <.chip size="lg">Chip</.chip>
-        """)
-
-      assert chip =~ "text-lg"
+      assert html =~ "hero-user"
     end
 
-    test "radius test" do
-      assigns = %{}
+    test "renders dismissable chip" do
+      html =
+        render_component(&chip/1, %{
+          label: "Dismissable Chip",
+          dismissable: true
+        })
 
-      chip =
-        rendered_to_string(~H"""
-        <.chip radius="md">Chip</.chip>
-        """)
-
-      assert chip =~ "rounded-md"
+      assert html =~ "hero-x-mark"
+      assert html =~ ~s(aria-label="Dismiss")
     end
+
+    test "applies custom classes" do
+      html =
+        render_component(&chip/1, %{
+          label: "Custom Class Chip",
+          class: "custom-class"
+        })
+
+      assert html =~ "custom-class"
+    end
+
+    test "generates unique internal_id" do
+      html1 =
+        render_component(&chip/1, %{
+          label: "Chip 1"
+        })
+
+      html2 =
+        render_component(&chip/1, %{
+          label: "Chip 2"
+        })
+
+      [_, id1] = Regex.run(~r/id="(chip-[^"]+)"/, html1)
+      [_, id2] = Regex.run(~r/id="(chip-[^"]+)"/, html2)
+
+      assert id1 != id2
+    end
+
+    test "handles dismissable functionality" do
+         html =
+           render_component(&chip/1, %{
+             label: "Dismissable Chip",
+             dismissable: true
+           })
+
+         # Verify the dismiss button exists
+         assert html =~ "phx-click"
+         assert html =~ "hero-x-mark"
+         assert html =~ "Dismiss"
+
+         # The JS.hide command is serialized with the target ID
+         assert html =~ ~s{phx-click=\"[[&quot;hide&quot;}
+         assert html =~ ~s{&quot;to&quot;:&quot;#chip-}
+       end
   end
 end

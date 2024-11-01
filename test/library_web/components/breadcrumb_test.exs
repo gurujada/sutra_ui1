@@ -1,157 +1,149 @@
-defmodule Library.BreadcrumbTest do
-  use ExUnit.Case, async: true
+defmodule LibraryWeb.BreadcrumbTest do
+  use LibraryWeb.ConnCase
   import Phoenix.LiveViewTest
   import Phoenix.Component
-  import Breadcrumb
+import Breadcrumb
+  describe "breadcrumb/1" do
+    test "renders a basic breadcrumb trail" do
+      links = [
+        %{to: "/", label: "Home"},
+        %{to: "/books", label: "Books"},
+        %{to: "/books/1", label: "Book Details"}
+      ]
 
-  describe "basic breadcrumb tests" do
-    test "basic usage" do
-      assigns = %{}
+      html =
+        render_component(&breadcrumb/1, %{
+          links: links,
+          id: "breadcrumb"
+        })
 
-      component =
-        rendered_to_string(~H"""
-        <.breadcrumb links={[
-          %{label: "Link 1", to: "https://www.virinchi.me"}
-        ]}>
-        </.breadcrumb>
-        """)
+      # Test for the presence of labels in the rendered HTML
+      assert html =~ "Home"
+      assert html =~ "Books"
+      assert html =~ "Book Details"
 
-      assert component =~ "Link 1"
-      assert component =~ "<a"
-      assert component =~ "href"
-      assert component =~ "www.virinchi.me"
+      # Test for the presence of links
+      assert html =~ ~s{href="/"}
+      assert html =~ ~s{href="/books"}
+      assert html =~ ~s{href="/books/1"}
     end
 
-    test "arbitrary attributes" do
-      assigns = %{}
+    test "renders with custom class" do
+      links = [%{to: "/", label: "Home"}]
+      custom_class = "custom-class"
 
-      component =
-        rendered_to_string(~H"""
-        <.breadcrumb
-          class="bg-primary"
-          links={[
-            %{label: "Link 1", to: ""}
-          ]}
-        >
-        </.breadcrumb>
-        """)
+      html =
+        render_component(&breadcrumb/1, %{
+          links: links,
+          class: custom_class,
+          id: "breadcrumb"
+        })
 
-      assert component =~ "bg-primary"
+      assert html =~ custom_class
     end
 
-    test "link_class" do
-      assigns = %{}
+    test "renders with custom link class" do
+      links = [%{to: "/", label: "Home"}]
+      custom_link_class = "custom-link-class"
 
-      component =
-        rendered_to_string(~H"""
-        <.breadcrumb
-          link_class="mt-8"
-          links={[
-            %{label: "Link 1", to: ""}
-          ]}
-        >
-        </.breadcrumb>
-        """)
+      html =
+        render_component(&breadcrumb/1, %{
+          links: links,
+          link_class: custom_link_class,
+          id: "breadcrumb"
+        })
 
-      assert component =~ "mt-8"
+      assert html =~ custom_link_class
     end
 
-    test "separator(slash)" do
-      assigns = %{}
+    test "renders with slash separator" do
+      links = [
+        %{to: "/", label: "Home"},
+        %{to: "/books", label: "Books"}
+      ]
 
-      component =
-        rendered_to_string(~H"""
-        <.breadcrumb
-          separator="slash"
-          links={[
-            %{label: "Link 1", to: ""},
-            %{label: "Link 1", to: ""}
-          ]}
-        >
-        </.breadcrumb>
-        """)
+      html =
+        render_component(&breadcrumb/1, %{
+          links: links,
+          separator: "slash",
+          id: "breadcrumb"
+        })
 
-      # Path for slash
-      assert component =~ "<path d=\"M6 13L10 3\""
+      # Verify slash separator path is present
+      assert html =~ ~s{<path d="M6 13L10 3"}
     end
 
-    test "separator(arrow)" do
-      assigns = %{}
+    test "renders with arrow separator" do
+      links = [
+        %{to: "/", label: "Home"},
+        %{to: "/books", label: "Books"}
+      ]
 
-      component =
-        rendered_to_string(~H"""
-        <.breadcrumb links={[
-          %{label: "Link 1", to: ""},
-          %{label: "Link 2", to: ""}
-        ]}>
-        </.breadcrumb>
-        """)
+      html =
+        render_component(&breadcrumb/1, %{
+          links: links,
+          separator: "arrow",
+          id: "breadcrumb"
+        })
 
-      # Path for arrow
-      assert component =~ "<path d=\"m9 18 6-6-6-6\">"
+      # Verify arrow separator path is present
+      assert html =~ ~s{<path d="m9 18 6-6-6-6"}
     end
 
-    test "icon test" do
-      assigns = %{}
+    test "renders with icons when provided" do
+      links = [
+        %{to: "/", label: "Home", icon: "hero-home"},
+        %{to: "/books", label: "Books", icon: "hero-book"}
+      ]
 
-      component =
-        rendered_to_string(~H"""
-        <.breadcrumb links={[
-          %{label: "Link 1", to: "", icon: "hero-user-solid"},
-          %{label: "Link 2", to: ""}
-        ]}>
-        </.breadcrumb>
-        """)
+      html =
+        render_component(&breadcrumb/1, %{
+          links: links,
+          id: "breadcrumb"
+        })
 
-      # Path for hero-user-solid
-      assert component =~ "hero-user-solid"
-    end
-  end
-
-  describe "breadcrumb methods" do
-    test "method link_type(a)" do
-      assigns = %{}
-
-      component =
-        rendered_to_string(~H"""
-        <.breadcrumb links={[
-          %{label: "Link 1", to: "", link_type: "a", icon: "hero-user-solid"},
-          %{label: "Link 2", to: "", link_type: "a"}
-        ]}>
-        </.breadcrumb>
-        """)
-
-      assert component =~ "<a href=\"\""
+      # Verify icons are present
+      assert html =~ "hero-home"
+      assert html =~ "hero-book"
     end
 
-    test "method link_type(live_patch)" do
-      assigns = %{}
+    test "applies special styling to last item" do
+      links = [
+        %{to: "/", label: "Home"},
+        %{to: "/books", label: "Last"}
+      ]
 
-      component =
-        rendered_to_string(~H"""
-        <.breadcrumb links={[
-          %{label: "Link 1", to: "", icon: "hero-user-solid"},
-          %{label: "Link 2", to: ""}
-        ]}>
-        </.breadcrumb>
-        """)
+      html =
+        render_component(&breadcrumb/1, %{
+          links: links,
+          id: "breadcrumb"
+        })
 
-      assert component =~ "<a href=\"/\" data-phx-link=\"patch\" data-phx-link-state=\"push\""
+      assert html =~ "font-semibold"
+      assert html =~ "cursor-default"
     end
 
-    test "method link_type(navigate)" do
-      assigns = %{}
+    test "accepts and renders arbitrary HTML attributes" do
+      links = [%{to: "/", label: "Home"}]
 
-      component =
-        rendered_to_string(~H"""
-        <.breadcrumb links={[
-          %{label: "Link 1", to: "", link_type: "navigate", icon: "hero-user-solid"},
-          %{label: "Link 2", to: "", link_type: "navigate"}
-        ]}>
-        </.breadcrumb>
-        """)
+      html =
+        render_component(&breadcrumb/1, %{
+          links: links,
+          name: "test-name",
+          rel: "nofollow",
+          id: "breadcrumb"
+        })
 
-      assert component =~ "<a href=\"/\" data-phx-link=\"redirect\" data-phx-link-state=\"push\""
+      assert html =~ ~s{name="test-name"}
+      assert html =~ ~s{rel="nofollow"}
+    end
+
+    test "raises when links are not provided" do
+      assert_raise KeyError, ~r/key :links not found/, fn ->
+        render_component(&Breadcrumb.breadcrumb/1, %{
+          id: "breadcrumb"
+        })
+      end
     end
   end
 end

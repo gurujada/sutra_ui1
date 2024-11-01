@@ -60,7 +60,6 @@ defmodule AvatarGroup do
           src={avatar.src}
           size={@size}
           status={Map.get(avatar, :status, false)}
-          to={Map.get(avatar, :to, "")}
         />
       <% end %>
 

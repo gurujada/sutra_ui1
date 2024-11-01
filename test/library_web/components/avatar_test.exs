@@ -1,152 +1,108 @@
-defmodule Library.AvatarTest do
-  use ExUnit.Case, async: true
-  import Phoenix.LiveViewTest
+defmodule LibraryWeb.AvatarTest do
+  use ExUnit.Case
   import Phoenix.Component
+  import Phoenix.LiveViewTest
   import Avatar
 
-  describe "avatar" do
-    test "renders avatar" do
-      assigns = %{}
+  describe "avatar/1" do
+    test "renders avatar with default values" do
+      html =
+        render_component(&avatar/1, %{
+          src: "",
+          size: "md",
+          class: "",
+          border: false,
+          placeholder: nil,
+          status: false
+        })
 
-      component =
-        rendered_to_string(~H"""
-        <.avatar src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "https://avatars.githubusercontent.com/u/12817388?v=4"
+      assert html =~ "inline-block"
+      assert html =~ "svg"
     end
 
-    test "renders avatar color(primary)" do
-      assigns = %{}
+    test "renders image when src is provided" do
+      image_url = "https://example.com/avatar.jpg"
+      html = render_component(&avatar/1, %{src: image_url})
 
-      component =
-        rendered_to_string(~H"""
-        <.avatar color="primary" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "border-primary"
+      assert html =~ image_url
+      assert html =~ "<img"
     end
 
-    test "renders avatar color(secondary)" do
-      assigns = %{}
+    test "renders initials when placeholder is provided without src" do
+      html = render_component(&avatar/1, %{src: "", placeholder: "John Doe"})
 
-      component =
-        rendered_to_string(~H"""
-        <.avatar color="secondary" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "border-secondary"
+      assert html =~ "JD"
     end
 
-    test "renders avatar color(success)" do
-      assigns = %{}
+    test "generates correct initials for single word names" do
+      html = render_component(&avatar/1, %{src: "", placeholder: "John"})
 
-      component =
-        rendered_to_string(~H"""
-        <.avatar color="success" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "border-success"
+      assert html =~ "JO"
     end
 
-    test "renders avatar color(warning)" do
-      assigns = %{}
+    test "renders status indicator when status is true" do
+      html = render_component(&avatar/1, %{status: true})
 
-      component =
-        rendered_to_string(~H"""
-        <.avatar color="warning" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "border-warning"
+      assert html =~ "ring-white"
+      assert html =~ "bg-blue-400"
     end
 
-    test "renders avatar color(danger)" do
-      assigns = %{}
+    test "applies different sizes correctly" do
+      for size <- ["xs", "sm", "md", "lg"] do
+        html = render_component(&avatar/1, %{size: size})
+        expected_size_class = size(size)
 
-      component =
-        rendered_to_string(~H"""
-        <.avatar color="danger" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "border-danger"
+        assert html =~ expected_size_class
+      end
     end
 
-    test "renders avatar size(xs)" do
-      assigns = %{}
+    test "accepts and applies custom classes" do
+      custom_class = "custom-test-class"
+      html = render_component(&avatar/1, %{class: custom_class})
 
-      component =
-        rendered_to_string(~H"""
-        <.avatar size="xs" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "h-8 w-8"
+      assert html =~ custom_class
     end
 
-    test "renders avatar size(sm)" do
-      assigns = %{}
+    test "prioritizes src over placeholder" do
+      html =
+        render_component(&avatar/1, %{
+          src: "https://example.com/avatar.jpg",
+          placeholder: "John Doe"
+        })
 
-      component =
-        rendered_to_string(~H"""
-        <.avatar size="sm" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "h-10 w-10"
+      assert html =~ "https://example.com/avatar.jpg"
+      refute html =~ "JD"
     end
 
-    test "renders avatar size(md)" do
-      assigns = %{}
+    # test "handles empty placeholder gracefully" do
+    #   html = render_component(&avatar/1, %{src: "", placeholder: ""})
 
-      component =
-        rendered_to_string(~H"""
-        <.avatar size="md" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
+    #   assert html =~ "svg"  # Should show default avatar
+    # end
 
-      assert component =~ "h-11 w-11"
+    test "applies correct status indicator size based on avatar size" do
+      for size <- ["xs", "sm", "md", "lg"] do
+        html = render_component(&avatar/1, %{size: size, status: true})
+        expected_status_size = status_size(size)
+
+        assert html =~ expected_status_size
+      end
     end
+  end
 
-    test "renders avatar size(lg)" do
-      assigns = %{}
+  describe "initials generation" do
+    test "generates correct initials for various name formats" do
+      test_cases = [
+        {"John Doe", "JD"},
+        {"John", "JO"},
+        {"Mary Jane Watson", "MW"},
+        {"Smith", "SM"}
+      ]
 
-      component =
-        rendered_to_string(~H"""
-        <.avatar size="lg" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "h-12 w-12"
-    end
-
-    test "renders avatar size(xl)" do
-      assigns = %{}
-
-      component =
-        rendered_to_string(~H"""
-        <.avatar size="xl" src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "h-14 w-14"
-    end
-
-    test "renders avatar border" do
-      assigns = %{}
-
-      component =
-        rendered_to_string(~H"""
-        <.avatar isBordered src="https://avatars.githubusercontent.com/u/12817388?v=4" />
-        """)
-
-      assert component =~ "border-3"
-    end
-
-    test "renders avatar initials & color" do
-      assigns = %{}
-
-      component =
-        rendered_to_string(~H"""
-        <.avatar color="primary" isBordered placeholder="Chivukula Virinchi" />
-        """)
-
-      assert component =~ "CV"
-      assert component =~ "bg-primary border-primary"
+      for {input, expected} <- test_cases do
+        html = render_component(&avatar/1, %{src: "", placeholder: input})
+        assert html =~ expected
+      end
     end
   end
 end

@@ -6,8 +6,8 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :library, Library.Repo,
-  username: "virinchi",
-  password: "gurujada",
+  username: "postgres",
+  password: "postgres",
   hostname: "localhost",
   database: "library_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
@@ -21,7 +21,6 @@ config :library, LibraryWeb.Endpoint,
   server: true
 
 config :library, :sql_sandbox, true
-config :wallaby, driver: Wallaby.Chrome
 # In test we don't send emails.
 config :library, Library.Mailer, adapter: Swoosh.Adapters.Test
 

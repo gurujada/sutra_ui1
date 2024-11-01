@@ -4,7 +4,7 @@ defmodule Chip do
   alias Phoenix.LiveView.JS
   use Phoenix.Component
   attr :class, :string, default: ""
-
+# dismissable ?
   attr :variant, :string,
     default: "solid",
     values: ["solid", "outline", "soft", "white"]
@@ -13,12 +13,9 @@ defmodule Chip do
   attr :icon, :map, default: nil, doc: "The icon to be included in the chip"
   attr :rest, :global, doc: "The arbitrary HTML attributes to pass to the component"
   attr :label, :string, default: "", doc: "The label of the chip"
-
   def chip(assigns) do
-    assigns = assign_new(assigns, :internal_id, fn -> "chip-#{Ecto.UUID.generate()}" end)
-
     ~H"""
-    <span id={@internal_id} class={chip_classes(@variant, @class)}>
+    <span class={chip_classes(@variant, @class)}>
       <.icon
         :if={@icon && Map.get(@icon, :position, "left") == "left"}
         name={Map.get(@icon, :name, "hero-")}
@@ -30,9 +27,9 @@ defmodule Chip do
         name={Map.get(@icon, :name, "hero-")}
         class={"shrink-0 size-3 #{Map.get(@icon, :class, "")}"}
       />
-      <span
+      <%!-- <span
         :if={@dismissable}
-        phx-click={JS.hide(to: "#" <> "#{@internal_id}")}
+        phx-click={JS.hide(to: "#" <> "#{@id}")}
         class="hover:cursor-pointer hover:bg-red-100 p-0.5 rounded-full"
         aria-label="Dismiss"
       >
@@ -41,7 +38,7 @@ defmodule Chip do
           name="hero-x-mark"
           class="size-3 text-current opacity-50 hover:opacity-100 focus:outline-none"
         />
-      </span>
+      </span> --%>
     </span>
     """
   end

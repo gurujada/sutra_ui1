@@ -59,7 +59,6 @@ defmodule Library.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:wallaby, "~> 0.30.6", [runtime: false, only: :test]},
       {:plug_cowboy, "~> 2.5"}
     ]
   end
