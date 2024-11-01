@@ -23,18 +23,13 @@ defmodule Avatar do
   attr :status, :boolean, default: false, doc: "The condition to show the avatar with a badge"
   attr :rest, :global, doc: "he arbitrary HTML attributes that can be passed to the avatar"
 
-  attr :to, :string,
-    default: "#",
-    doc: "The path to patch the liveview to - most likely the user profile"
-
   def avatar(assigns) do
     ~H"""
     <div class="relative inline-block">
-      <.link patch={~p"/#{@to}"}>
         <span
           :if={@src == "" && !@placeholder}
           {@rest}
-          class={"inline-block size-6 bg-gray-100 rounded-full overflow-hidden #{avatar_classes(@size, @class)}"}
+          class={"z-0 inline-block size-6 bg-gray-100 rounded-full overflow-hidden #{avatar_classes(@size, @class)}"}
         >
           <svg
             class="size-full text-gray-300"
@@ -60,7 +55,7 @@ defmodule Avatar do
 
         <span
           :if={@src == "" && @placeholder}
-          class="inline-flex items-center justify-center size-8 rounded-full bg-gray-500 text-xs font-semibold text-white leading-none"
+          class="z-0 inline-flex items-center justify-center size-8 rounded-full bg-gray-500 text-xs font-semibold text-white leading-none"
           {@rest}
         >
           <%= generate_initials(@placeholder) %>
@@ -70,19 +65,18 @@ defmodule Avatar do
         <span
           :if={@status}
           class={[
-            "absolute top-0 end-0 block #{status_size(@size)} rounded-full z-50 ring-2 ring-white bg-blue-400 dark:ring-neutral-900",
+            "absolute top-0 end-0 block #{status_size(@size)} rounded-full z-20 ring-2 ring-white bg-blue-400 dark:ring-neutral-900",
             String.contains?(@class, "rounded") && "transform -translate-y-1/2 translate-x-1/2"
           ]}
         >
         </span>
-      </.link>
     </div>
     """
   end
 
   defp avatar_classes(size, class) do
     # Include in the documentation that rounded-sm will superseed the rounded-full class
-    "rounded-full inline-block ring-2 ring-white dark:ring-neutral-900 #{size(size)} #{class}"
+    "rounded-full inline-block ring-2 ring-white dark:ring-neutral-900 z-0 #{size(size)} #{class}"
   end
 
   def size(size) do

@@ -1,6 +1,6 @@
 defmodule DropdownItem do
   use Phoenix.Component
-
+  import Helpers
   attr :class, :string, default: ""
   attr :label, :string, required: true
 
@@ -42,7 +42,7 @@ defmodule DropdownItem do
       {@rest}
     >
       <div>
-        <LibraryWeb.CoreComponents.icon :if={@icon} name={@icon} class="shrink-0 h-4 w-4 mr-2 m-1" />
+        <.icon :if={@icon} name={@icon} class="shrink-0 h-4 w-4 mr-2 m-1" />
         <%= @label %>
       </div>
       <kbd

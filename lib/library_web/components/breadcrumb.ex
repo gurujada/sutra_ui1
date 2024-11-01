@@ -1,6 +1,7 @@
 defmodule Breadcrumb do
   use Phoenix.Component
 
+  import Helpers
   attr :link_class, :string, default: ""
   attr :class, :string, default: ""
   attr :separator, :string, default: "arrow", values: ["arrow", "slash"]
@@ -21,11 +22,7 @@ defmodule Breadcrumb do
             patch={link.to}
             {@rest}
           >
-            <LibraryWeb.CoreComponents.icon
-              :if={Map.has_key?(link, :icon)}
-              name={link.icon}
-              class="shrink-0 me-1 h-5 w-5"
-            />
+            <.icon :if={Map.has_key?(link, :icon)} name={link.icon} class="shrink-0 me-1 h-5 w-5" />
             <%= link.label %>
           </.link>
         </li>
@@ -66,7 +63,6 @@ defmodule Breadcrumb do
   end
 
   def ending_class() do
-    "inline-flex items-center text-sm
-    font-semibold text-gray-800 truncate dark:!text-neutral-200 cursor-default"
+    "inline-flex items-center text-sm font-semibold text-gray-800 truncate dark:!text-neutral-200 cursor-default"
   end
 end

@@ -1,5 +1,7 @@
 defmodule Tabs do
   use LibraryWeb, :live_component
+  import Helpers
+
   # Add @rest
   attr :active_tab, :string, required: true
   attr :type, :string, default: "default", values: ["default", "vertical", "card", "segment"]
@@ -28,7 +30,7 @@ defmodule Tabs do
               role="tab"
             >
               <%= if tab[:icon] && tab.icon != "" do %>
-                <LibraryWeb.CoreComponents.icon
+                <.icon
                   name={tab.icon}
                   class={"shrink-0 h-5 w-5 text-gray-600 group-hover:text-blue-500 -mr-1 #{if (@active_tab == slugify(tab.name)), do: get_active_classes()}"}
                 />

@@ -84,7 +84,19 @@ defmodule LibraryWeb do
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
-      import LibraryWeb.CoreComponents
+      # import LibraryWeb.CoreComponents
+      import Helpers
+      import Avatar
+      import AvatarGroup
+      import Breadcrumb
+      import Button
+      import Chip
+      import Dropdown
+      import Flash
+      import Input
+      import Modal
+      import Offcanvas
+      import DropdownItem
       import LibraryWeb.Gettext
 
       # Shortcut for generating JS commands

@@ -1,7 +1,7 @@
 defmodule AvatarGroup do
   use Phoenix.Component
-  import Avatar
   use Phoenix.VerifiedRoutes, endpoint: LibraryWeb.Endpoint, router: LibraryWeb.Router
+  import Avatar
 
   attr(:class, :string, default: "")
   attr(:size, :string, default: "md", values: ["sm", "md", "lg"])
@@ -11,8 +11,6 @@ defmodule AvatarGroup do
 
   attr(:src, :string, default: nil)
   attr(:placeholder, :string, default: nil)
-  attr(:to, :string, default: nil)
-
   attr(:avatars, :list,
     required: true,
     doc: "The list of Avatars to be rendered. Each avatar to be passed as a map"
@@ -31,7 +29,6 @@ defmodule AvatarGroup do
           src={avatar.src}
           size={@size}
           status={Map.get(avatar, :status, false)}
-          to={Map.get(avatar, :to, "")}
         />
       <% end %>
 

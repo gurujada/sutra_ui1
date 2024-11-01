@@ -19,13 +19,13 @@ defmodule LibraryWeb.PostLive.FormComponent do
         name="form"
         phx-submit="save"
       >
-        <Input.input icon="hero-user"
-        placeholder="Email"
+        <.input
+          icon="hero-user"
+          placeholder="Email"
           field={@form[:body]}
           placeholder="Body"
           phx-debounce="300"
           type="text"
-
           suffix={
             %{
               icon: "hero-beaker",
@@ -33,12 +33,11 @@ defmodule LibraryWeb.PostLive.FormComponent do
               query: "",
               # label: "Search",
               navigate: "/posts"
-            }}
+            }
+          }
           label="Body"
           prefix="https://"
-        >
-
-        </Input.input>
+        />
 
         <.input field={@form[:likes_count]} type="number" label="Likes count" />
         <.input field={@form[:repost_count]} type="number" label="Repost count" />

@@ -5,22 +5,25 @@ defmodule Offcanvas do
   slot :inner_block
   attr :position, :string, default: "left", values: ["top", "right", "left", "bottom"]
   attr :class, :string, default: ""
+  attr :id, :any, required: true, doc: "The unique id of the offcanvas element"
+  slot :trigger, required: true, doc: "The trigger element"
 
-  def offcanvas(%{position: "right"} = assigns) do
+  def offcanvas(assigns) do
     ~H"""
-    <button class={["z-50 bg-red-40", @class]} phx-click={button_classes(@position)}>
-      Open
-    </button>
+    <div class="w-fit" phx-click={toggle(@position, @id)}>
+      <%= render_slot(@trigger) %>
+    </div>
     <div
-      phx-click={button_classes(@position)}
-      id="backdrop"
-      class="absolute z-10 hidden w-full h-screen bg-gray-600/20"
+      phx-click={toggle(@position, @id)}
+      id={"backdrop-#{@id}"}
+      class="absolute inset-0 opacity-90 z-40 hidden w-full h-full bg-gray-600/20"
     >
     </div>
     <div
-      id="offcanvas"
+      id={@id}
       class={[
-        "hidden h-screen bg-white lg:max-w-sm max-w-xs top-0 right-0 absolute z-50"
+        "absolute hidden transition-transform transform",
+        position(@position)
       ]}
     >
       <%= render_slot(@inner_block) %>
@@ -28,125 +31,63 @@ defmodule Offcanvas do
     """
   end
 
-  def offcanvas(%{position: "left"} = assigns) do
-    ~H"""
-    <button class={["z-50 bg-red-400", @class]} phx-click={button_classes(@position)}>
-      Open
-    </button>
-    <div
-      phx-click={button_classes(@position)}
-      id="backdrop"
-      class="absolute z-10 hidden w-full h-screen bg-gray-600/20"
-    >
-    </div>
-    <div
-      id="offcanvas"
-      class={[
-        "hidden h-screen bg-white lg:max-w-sm max-w-xs top-0 left-0 absolute z-50"
-      ]}
-    >
-      <%= render_slot(@inner_block) %>
-    </div>
-    """
+  defp position("left"),
+    do: "h-full bg-white z-50 top-0 left-0 lg:max-w-sm max-w-xs -translate-x-full"
+
+  defp position("right"),
+    do: "h-full bg-white z-50 top-0 right-0 lg:max-w-sm max-w-xs translate-x-full"
+
+  defp position("top"), do: "bg-white z-50 max-h-min w-full top-0 inset-x-0 -translate-y-full"
+
+  defp position("bottom"),
+    do: "bg-white z-50 max-h-min w-full bottom-0 inset-x-0 translate-y-full"
+
+  def toggle("left", id) do
+    JS.toggle(
+      to: "##{id}",
+      in: {"ease-in-out duration-300", "-translate-x-full", "translate-x-0"},
+      out: {"ease-in-out duration-300", "translate-x-0", "-translate-x-full"},
+      time: 300
+    )
+    |> toggle_backdrop(id)
   end
 
-  def offcanvas(%{position: "top"} = assigns) do
-    ~H"""
-    <button class={["z-50 bg-red-400", @class]} phx-click={button_classes(@position)}>
-      Open
-    </button>
-    <div
-      phx-click={button_classes(@position)}
-      id="backdrop"
-      class="absolute inset-x-0 z-10 hidden w-full h-screen bg-gray-600/20"
-    >
-    </div>
-    <div
-      id="offcanvas"
-      class={[
-        "hidden bg-white w-full max-h-min inset-x-0 top-0 absolute z-50"
-      ]}
-    >
-      <%= render_slot(@inner_block) %>
-    </div>
-    """
+  def toggle("right", id) do
+    JS.toggle(
+      to: "##{id}",
+      in: {"ease-in-out duration-300", "translate-x-full", "-translate-x-0"},
+      out: {"ease-in-out duration-300", "-translate-x-0", "translate-x-full"},
+      time: 300
+    )
+    |> toggle_backdrop(id)
   end
 
-  def offcanvas(%{position: "bottom"} = assigns) do
-    ~H"""
-    <button class={["z-50 bg-red-400", @class]} phx-click={button_classes(@position)}>
-      Open
-    </button>
-    <div
-      phx-click={button_classes(@position)}
-      id="backdrop"
-      class="absolute inset-0 z-10 hidden w-full h-screen bg-gray-600/20"
-    >
-    </div>
-    <div
-      id="offcanvas"
-      class={[
-        "hidden bg-white w-full max-h-min inset-x-0 bottom-0 absolute z-50"
-      ]}
-    >
-      <%= render_slot(@inner_block) %>
-    </div>
-    """
+  def toggle("top", id) do
+    JS.toggle(
+      to: "##{id}",
+      in: {"ease-in-out duration-300", "-translate-y-full", "translate-y-0"},
+      out: {"ease-in-out duration-300", "translate-y-0", "-translate-y-full"},
+      time: 300
+    )
+    |> toggle_backdrop(id)
   end
 
-  def button_classes(position) do
-    case position do
-      "right" ->
-        JS.toggle(
-          to: "#offcanvas",
-          in: {"ease-in-out duration-300", "translate-x-full", "-translate-x-0"},
-          out: {"ease-in-out duration-300", "-translate-x-0", "translate-x-full"},
-          time: 300
-        )
-        |> JS.toggle(
-          to: "#backdrop",
-          in: "fade-in",
-          out: "fade-out"
-        )
-
-      "left" ->
-        JS.toggle(
-          to: "#offcanvas",
-          in: {"ease-in-out duration-300", "-translate-x-full", "translate-x-0"},
-          out: {"ease-in-out duration-300", "translate-x-0", "-translate-x-full"},
-          time: 300
-        )
-        |> JS.toggle(
-          to: "#backdrop",
-          in: "fade-in",
-          out: "fade-out"
-        )
-
-      "top" ->
-        JS.toggle(
-          to: "#offcanvas",
-          in: {"ease-in-out duration-300", "-translate-y-full", "translate-y-0"},
-          out: {"ease-in-out duration-300", "translate-y-0", "-translate-y-full"},
-          time: 300
-        )
-        |> JS.toggle(
-          to: "#backdrop",
-          in: "fade-in",
-          out: "fade-out"
-        )
-
-      "bottom" ->
-        JS.toggle(
-          to: "#offcanvas",
-          in: {"ease-in-out duration-300", "translate-y-full", "-translate-y-0"},
-          out: {"ease-in-out duration-300", "-translate-y-0", "translate-y-full"},
-          time: 300
-        )
-        |> JS.toggle(
-          to: "#backdrop",
-          in: "fade-in",
-          out: "fade-out"
-        )
-    end
+  def toggle("bottom", id) do
+    JS.toggle(
+      to: "##{id}",
+      in: {"ease-in-out duration-300", "translate-y-full", "-translate-y-0"},
+      out: {"ease-in-out duration-300", "-translate-y-0", "translate-y-full"},
+      time: 300
+    )
+    |> toggle_backdrop(id)
   end
+
+  def toggle_backdrop(js \\ %JS{}, id),
+    do:
+      js
+      |> JS.toggle(
+        to: "#backdrop-#{id}",
+        in: "fade-in",
+        out: "fade-out"
+      )
 end

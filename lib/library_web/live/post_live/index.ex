@@ -8,7 +8,7 @@ defmodule LibraryWeb.PostLive.Index do
   def mount(_params, _session, socket) do
     socket =
       socket
-      |> assign(show_cart: false)
+      |> put_flash(:info, "Mounted Successfully")
 
     {:ok, stream(socket, :posts, Timeline.list_posts())}
   end

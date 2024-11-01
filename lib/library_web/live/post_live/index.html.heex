@@ -1,200 +1,109 @@
-<%!-- <div class="my-2">
-  <h1 class="text-xl">Sizes</h1>
-<div class="flex space-x-2">
-<%= for size <- ["xs", "sm", "md", "lg"] do %>
-  <Avatar.avatar placeholder="Chivukula Virinchi" id={size} phx-hook="Tooltip" data-tippy-content="Chivukula Virinchi"
-  size={size} status={true} src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" />
-<% end %>
-  </div>
-</div>
-<div class="my-2">
-<h1 class="text-lg">Without Placeholder</h1>
-<div class="flex space-x-2">
-<%= for size <- ["xs", "sm", "md", "lg"] do %>
-  <Avatar.avatar size={size} status={true} />
+<section class="my-16">
+  <.button phx-click={Modal.show_modal("post-modal")}>Open Model</.button>
+  <.modal class="" size="lg" id="post-modal" on_cancel={JS.patch(~p"/posts")}>
+    <div class="lg:max-w-4xl lg:w-full lg:mx-auto m-3 sm:mx-auto">
+      <div class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
+        <div class="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-700">
+          <h3 id="hs-basic-modal-label" class="font-bold text-gray-800 dark:text-white">
+            Modal title
+          </h3>
+          <%!-- have to pass the modal id to the close button. esc works as well.  --%>
+          <button
+            type="button"
+            phx-click={JS.exec("data-cancel", to: "##{"post-modal"}")}
+            class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600"
+            aria-label="Close"
+            data-hs-overlay="#hs-basic-modal"
+          >
+            <span class="sr-only">Close</span>
+            <svg
+              class="shrink-0 size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="p-4 overflow-y-auto">
+          <p class="mt-1 text-gray-800 dark:text-neutral-400">
+            This is a wider card with supporting text below as a natural lead-in to additional content.
+          </p>
+        </div>
+        <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-700">
+          <button
+            phx-click={Modal.hide_modal("post-modal")}
+            type="button"
+            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+            data-hs-overlay="#hs-basic-modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </.modal>
+</section>
+<section class="my-16">
+<div class="grid grid-cols-4 space-x-4">
+
+  <%= for size <- ["xs", "sm", "md", "lg"] do %>
+    <.input variant="solid" size={size} label={"Size: #{size}"} type="switch" name="name" value="" id="input-1" />
   <% end %>
-  </div>
-
-  <h1 class="text-lg">Without src</h1>
-  <Avatar.avatar
-    color="primary"
-    class="mt-4"
-    placeholder="Chivukula Virinchi"
-  />
-  <h1 class="text-lg">With Status</h1>
-  <Avatar.avatar
-    status={true}
-    size="sm"
-    class="mt-4"
-    placeholder="Chivukula Virinchi"
-  />
-</div> --%>
-
-<h1>Avatar Group (Facepile)</h1>
-
-<div class="w-56">
-  <AvatarGroup.avatar_group
-    limit={2} variant="grid"
-    avatars={[
-      %{ placeholder: "Virinchi",
-        src:
-          "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-        status: 1 == 1,
-        to: ~p"/posts/new"
-      },
-      %{
-        placeholder: "Virinchi",
-        src:
-          "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-      },
-      %{
-        placeholder: "Virinchi",
-        src:
-          "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-      },
-      %{
-        placeholder: "Virinchi",
-        src:
-          "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-      },
-      %{
-        placeholder: "Virinchi",
-        src:
-          "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-      },
-      %{
-        placeholder: "Virinchi",
-        src:
-          "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-      },
-      %{
-        placeholder: "Virinchi",
-        src:
-          "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-      }
-    ]}
-  />
 </div>
+<div class="grid grid-cols-2 space-x-4">
 
-<%!-- <div class="my-4">
-  <h1 class="text-lg">Size</h1>
-  <LibraryWeb.Button.button color="primary" size="sm">Button</LibraryWeb.Button.button>
-  <Button.button color="primary" size="md">Button</Button.button>
-  <Button.button color="primary" size="lg">Button</Button.button>
-  <h1 class="text-lg">Color</h1>
-  <Button.button color="primary">Button</Button.button>
-  <Button.button color="secondary">Button</Button.button>
-  <Button.button color="success">Button</Button.button>
-  <Button.button color="warning">Button</Button.button>
-  <Button.button color="danger">Button</Button.button>
+  <%= for variant <- ["solid", "soft"] do %>
+    <.input class="text-sm text-gray-500 ms-3 dark:text-neutral-400" variant={variant} label={"Variant: #{variant}"}} type="switch" name="name" value="" id="input-1" />
 
-  <h1 class="text-lg">Variants</h1>
-  <Button.button variant="solid">Solid</Button.button>
-  <Button.button variant="outline">Outline</Button.button>
-  <Button.button variant="soft">Soft</Button.button>
-  <Button.button variant="white">White</Button.button>
-  <Button.button color="success" variant="shadow">Shadow</Button.button>
-  <h1 class="text-lg">With Icon</h1>
-  <Button.button icon_position="right">
-    <:icon>
-      <svg
-        class="flex-shrink-0 w-5 h-5"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="m5 11 4-7" /><path d="m19 11-4-7" /><path d="M2 11h20" /><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4" /><path d="m9 11 1 9" /><path d="M4.5 15.5h15" /><path d="m15 11-1 9" />
-      </svg>
-    </:icon>
-    Checkout
-  </Button.button>
-</div> --%>
-<%!--
-<Chip.chip size="xs">Chip</Chip.chip>
-<Chip.chip size="sm">Chip</Chip.chip>
-<Chip.chip size="md">Chip</Chip.chip>
-<Chip.chip size="lg">Chip</Chip.chip>
-
-<h1 class="mt-4 text-lg">Disabled</h1>
-<Chip.chip disabled size="md">Chip</Chip.chip>
-
-<h1 class="mt-4 text-lg">Colors</h1>
-<Chip.chip color="primary" size="md">Chip</Chip.chip>
-<Chip.chip color="secondary" size="md">Chip</Chip.chip>
-
-<Chip.chip variant="ghost">Chip</Chip.chip>
-
-<h1 class="text-lg">Variants</h1>
-<Chip.chip variant="ghost">Chip</Chip.chip>
-<Chip.chip variant="ghost">Chip</Chip.chip>
-
-<h1 class="text-lg">With indicator</h1>
-<Chip.chip class="text-black bg-amber-200" indicator size="xs">Chip</Chip.chip>
-
-<h1 class="text-lg">With Icon</h1>
-<Chip.chip class="text-green-600 bg-green-200" icon_position="left">
-  <:icon>
-    <svg
-      class="flex-shrink-0 w-3 h-3 text-green-600"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" /><path d="m9 12 2 2 4-4" />
-    </svg>
-  </:icon>
-  Connected
-</Chip.chip> --%>
-
-<%!--
-
-<%!--
-
-<Offcanvas.offcanvas class="absolute top-0" position="top">
-  <div class="flex items-center justify-between px-4 py-3 border-b dark:border-gray-700">
-    <h3 class="font-bold text-gray-800 dark:text-white">
-      Offcanvas title
-    </h3>
-    <button
-      phx-click={Offcanvas.button_classes("top")}
-      type="button"
-      class="flex items-center justify-center text-sm font-semibold text-gray-800 border border-transparent rounded-full w-7 h-7 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-      data-hs-overlay="#hs-overlay-example"
-    >
-      <span class="sr-only">Close modal</span>
-      <svg
-        class="flex-shrink-0 w-4 h-4"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M18 6 6 18" /><path d="m6 6 12 12" />
-      </svg>
-    </button>
+    <% end %>
   </div>
-  <div class="p-4">
-    <p class="text-gray-800 dark:text-gray-400">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea unde est voluptatibus praesentium. Ipsam veritatis adipisci necessitatibus nostrum alias natus nobis quis provident sunt! Minima harum animi impedit earum et.
-    </p>
-    <%!-- <.Button.button class="mt-2" color="primary">Click Me!</.Button.button>
-  </div>
-</Offcanvas.offcanvas>
- --%>
 
+</section>
+<section class="my-16 max-w-lg">
+  <%!-- add relative overflow-hidden to appear to parent container! --%>
+  <h1 class="text-2xl">Offcanvas</h1>
+  <%= for {position, index} <- Enum.with_index(["left", "top", "right", "bottom"]) do %>
+    <.offcanvas id={"offcanvas-#{index}"} position={position}>
+      <:trigger>
+        <.button class="w-full">Open <%= position %></.button>
+      </:trigger>
+      <div class="flex items-center justify-between px-4 py-3 border-b dark:border-gray-700">
+        <h3 class="font-bold text-gray-800 dark:text-white">
+          <%= position |> String.capitalize() %> Offcanvas
+        </h3>
+        <button
+          phx-click={Offcanvas.toggle(position, "offcanvas-#{index}")}
+          type="button"
+          class="flex items-center justify-center text-sm font-semibold text-gray-800 border border-transparent rounded-full w-7 h-7 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+        >
+          <span class="sr-only">Close modal</span>
+          <.icon class="flex-shrink-0 size-4" name="hero-x-mark" />
+        </button>
+      </div>
+      <div class="p-4">
+        <p class="text-gray-800 dark:text-gray-400">
+          Lorem ipsum dolor sit amet consecticur api
+        </p>
+        <.button class="mt-2">Click Me!</.button>
+      </div>
+    </.offcanvas>
+  <% end %>
+</section>
 <section>
   <h1 class="text-2xl">Dark Mode</h1>
 
@@ -224,7 +133,140 @@
     </svg>
   </button>
 </section>
-<%!--
+
+<div class="my-16">
+  <h1 class="text-2xl">Avatars</h1>
+  <h1 class="text-xl">Sizes</h1>
+  <div class="flex space-x-2">
+    <%= for size <- ["xs", "sm", "md", "lg"] do %>
+      <.avatar
+        placeholder="Chivukula Virinchi"
+        id={size}
+        phx-hook="Tooltip"
+        data-tippy-content="Chivukula Virinchi"
+        size={size}
+        status={true}
+        src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+      />
+    <% end %>
+  </div>
+  <div class="my-2">
+    <h1 class="text-lg">Without Placeholder</h1>
+    <div class="flex space-x-2">
+      <%= for size <- ["xs", "sm", "md", "lg"] do %>
+        <.avatar size={size} status={true} />
+      <% end %>
+    </div>
+
+    <h1 class="text-lg">Without src</h1>
+    <.avatar color="primary" class="mt-4" placeholder="Chivukula Virinchi" />
+    <h1 class="text-lg">With Status</h1>
+    <.avatar status={true} size="sm" class="mt-4" placeholder="Chivukula Virinchi" />
+  </div>
+</div>
+
+<div class="my-16">
+  <h1 class="text-2xl">Avatar Group (Facepile)</h1>
+  <%= for variant <- ["stack", "grid"] do %>
+    <h1><%= variant %></h1>
+    <.avatar_group
+      class=""
+      limit={2}
+      variant={variant}
+      avatars={[
+        %{
+          placeholder: "Virinchi",
+          src:
+            "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+          status: 1 == 1,
+          to: ~p"/posts/new"
+        },
+        %{
+          placeholder: "Virinchi",
+          src:
+            "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+        },
+        %{
+          placeholder: "Virinchi",
+          src:
+            "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+        },
+        %{
+          placeholder: "Virinchi",
+          src:
+            "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+        },
+        %{
+          placeholder: "Virinchi",
+          src:
+            "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+        },
+        %{
+          placeholder: "Virinchi",
+          src:
+            "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+        },
+        %{
+          placeholder: "Virinchi",
+          src:
+            "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+        }
+      ]}
+    />
+  <% end %>
+</div>
+
+<div class="my-16">
+  <h1 class="text-2xl">Buttons</h1>
+  <h1 class="text-xl">Sizes</h1>
+  <%= for size <- ["sm", "md", "lg"] do %>
+    <.button size={size}>Click Me!</.button>
+  <% end %>
+
+  <h1 class="text-xl">Variants</h1>
+  <%= for variant <- ["solid", "outline", "ghost", "white", "soft"] do %>
+    <.button variant={variant}>Click Me!</.button>
+  <% end %>
+
+  <h1 class="text-xl">With Icons</h1>
+  <.button variant="outline" icon={%{name: "hero-arrow-right", class: "", position: "right"}}>
+    Add to Card
+  </.button>
+  <.button variant="ghost" icon={%{name: "hero-user-circle"}}>
+    Click Me!
+  </.button>
+</div>
+
+<div class="my-16">
+  <h1 class="text-2xl">Badges/Chip</h1>
+  <h1 class="text-xl">Variants</h1>
+  <%= for variant <- ["solid", "soft", "outline", "white"] do %>
+    <.chip label="Badge" variant={variant} />
+  <% end %>
+
+  <h1 class="text-xl">With Icons</h1>
+  <.chip
+    class="bg-green-50 text-green-700"
+    variant="soft"
+    icon={%{name: "hero-beaker", class: "", position: "right"}}
+    label="Badge"
+  />
+  <.chip
+    class="bg-red-50 text-red-700"
+    variant="soft"
+    icon={%{name: "hero-chart-bar-square"}}
+    label="Badge"
+  />
+  <.chip
+    dismissable
+    class="bg-red-50 text-red-700"
+    variant="soft"
+    icon={%{name: "hero-chart-bar-square"}}
+    label="Badge"
+  />
+</div>
+
+<h1 class="text-2xl">Tooltips</h1>
 <button
   phx-hook="Tooltip"
   data-tippy-content="<b>Lorem</b> ipsum dolor sit amet consecticur api"
@@ -232,7 +274,144 @@
   id="b1"
 >
   Ghost
-</button> --%>
+</button>
+
+<section class="my-16">
+  <h1 class="text-2xl">Dropdown</h1>
+  <p class="text-gray-600">
+    Pass dropdown-toggle to the button and dropdown-icon to the icon. Additionally, pass transition, duration to the icon if you want to rotate it. Dont pass the icon at all if you dont want it.
+  </p>
+
+  <.dropdown>
+    <:trigger>
+      <button
+        phx-hook="Tooltip"
+        data-tippy-content="Hi"
+        id="dropdown-button1"
+        type="button"
+        class=" py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+        aria-haspopup="menu"
+        aria-expanded="false"
+        aria-label="Dropdown"
+      >
+        Actions
+        <svg
+          id="dropdown-icon1"
+          class="transition duration-300 size-4"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+    </:trigger>
+
+    <:content>
+      <.dropdownItem type="custom" label="Newsletter">
+        <h1>Heading</h1>
+      </.dropdownItem>
+      <div class="p-1 space-y-0.5">
+        <.dropdownItem type="title" label="Newsletter" />
+        <.dropdownItem label="Newsletter" />
+      </div>
+
+      <div class="p-1 space-y-0.5">
+        <.dropdownItem
+          icon="hero-exclamation-circle-mini"
+          label="Newsletter"
+          class="hover:text-red-500"
+          patch={~p"/"}
+        />
+        <.dropdownItem icon="hero-beaker" label="Newsletter" />
+      </div>
+      <div class="p-1 space-y-0.5">
+        <.dropdownItem type="title" label="Contacts" />
+        <%!-- <DropdownItem.dropdownItem kbd="shift + ," icon="hero-beaker" label="Newsletter" /> --%>
+        <.dropdownItem icon="hero-beaker" label="Newsletter" />
+      </div>
+    </:content>
+  </.dropdown>
+</section>
+
+<section class="my-16">
+  <h1 class="text-2xl">Tabs</h1>
+  <p class="text-gray-600">Tabs make it easy to switch between different views.</p>
+  <.live_component module={Tabs} active_tab={@active_tab} id="1">
+    <:tab name="Home" icon="hero-home" badge="9" class="">
+      <div id="tabs-with-underline-1" role="tabpanel" aria-labelledby="tabs-with-underline-item-1">
+        <p class="text-gray-500 dark:text-neutral-400">
+          This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">first</em>
+          item's tab body.
+        </p>
+      </div>
+    </:tab>
+    <:tab name="Profile" icon="hero-user">
+      <div
+        id="tabs-with-underline-2"
+        class=""
+        role="tabpanel"
+        aria-labelledby="tabs-with-underline-item-2"
+      >
+        <p class="text-gray-500 dark:text-neutral-400">
+          This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">second</em>
+          item's tab body.
+        </p>
+      </div>
+    </:tab>
+    <:tab name="Settings" icon="hero-cog-6-tooth" badge="50+">
+      <div
+        id="tabs-with-underline-3"
+        class=""
+        role="tabpanel"
+        aria-labelledby="tabs-with-underline-item-3"
+      >
+        <p class="text-gray-500 dark:text-neutral-400">
+          This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">third</em>
+          item's tab body.
+        </p>
+      </div>
+    </:tab>
+
+    <:tab name="Submarines">
+      <div
+        id="tabs-with-underline-4"
+        class=""
+        role="tabpanel"
+        aria-labelledby="tabs-with-underline-item-3"
+      >
+        <p class="text-gray-500 dark:text-neutral-400">
+          This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">fourth</em>
+          item's tab body.
+        </p>
+      </div>
+    </:tab>
+  </.live_component>
+</section>
+
+<section class="my-16">
+  <h1 class="text-2xl">Breadcrumb</h1>
+  <.breadcrumb
+    separator="slash"
+    class=""
+    links={[
+      %{
+        label: "Link 1",
+        to: "https://www.virinchi.me",
+        icon: "hero-building-office-2"
+      },
+      %{label: "Link 2", to: "/", icon: "hero-beaker"},
+      %{label: "Link 3", to: "", icon: "hero-beaker"},
+      %{label: "Link 4", to: "", icon: "hero-beaker"}
+    ]}
+  />
+</section>
 
 <%!-- <.modal
   :if={@live_action in [:new, :edit]}
@@ -249,39 +428,3 @@
     patch={~p"/posts"}
   />
 </.modal> --%>
-
-<%!--
-
-<Modal.modal
-  :if={@live_action in [:new]}
-  size="lg"
-  id="test"
-  show
-  on_cancel={JS.patch(~p"/posts")}
->
-  <:modal_header>
-    Modal Title
-  </:modal_header>
-
-  <:modal_content>
-    <p class="text-gray-800">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores quia commodi illum aliquid exercitationem magni cum facere itaque libero beatae culpa necessitatibus voluptatem officia laudantium saepe voluptas vitae, velit officiis!
-    </p>
-  </:modal_content>
-
-  <:modal_footer>
-    <button
-      type="button"
-      class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-      data-hs-overlay="#hs-basic-modal"
-    >
-      Close
-    </button>
-    <button
-      type="button"
-      class="inline-flex items-center px-3 py-2 text-sm font-semibold text-white bg-blue-600 border border-transparent rounded-lg gap-x-2 hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-    >
-      Save changes
-    </button>
-  </:modal_footer>
-</Modal.modal> --%>

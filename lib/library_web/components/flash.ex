@@ -1,98 +1,79 @@
 defmodule Flash do
   use Phoenix.Component
-  attr(:id, :string, doc: "the optional id of flash container")
-  attr(:flash, :map, default: %{}, doc: "the map of flash messages to display")
-  attr(:title, :string, default: nil)
-  attr(:kind, :atom, values: [:info, :error], doc: "used for styling and flash lookup")
-  attr(:rest, :global, doc: "the arbitrary HTML attributes to add to the flash container")
-  attr(:target, :any, default: nil, doc: "the target for the phx-click event")
+  import LibraryWeb.Gettext
+  # importing hide() and show() from here
+  import Helpers
+  alias Phoenix.LiveView.JS
+  attr :id, :string, default: "flash", doc: "the optional id of flash container"
+  attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
+  attr :title, :string, default: nil
+  attr :kind, :atom, values: [:info, :error], doc: "used for styling and flash lookup"
+  attr :rest, :global, doc: "the arbitrary HTML attributes to add to the flash container"
 
-  attr(:duration, :integer,
-    default: 6000,
-    doc: "the time in milliseconds before the message is automatically dismissed"
-  )
-
-  attr(:toast_class_fn, :any,
-    required: true,
-    doc: "function to override the toast classes"
-  )
-
-  attr(:corner, :atom, required: true, doc: "the corner to display the toasts")
-
-  attr(:icon, :any, default: nil, doc: "the optional icon to render in the flash message")
-  attr(:action, :any, default: nil, doc: "the optional action to render in the flash message")
-  attr(:component, :any, default: nil, doc: "the optional component to render the flash message")
-
-  slot(:inner_block, doc: "the optional inner block that renders the flash message")
-
+  slot :inner_block, doc: "the optional inner block that renders the flash message"
 
   def flash(assigns) do
-    assigns =
-      assign_new(assigns, :id, fn -> "flash-#{assigns.kind}" end)
-
     ~H"""
     <div
       :if={msg = render_slot(@inner_block) || Phoenix.Flash.get(@flash, @kind)}
       id={@id}
+      phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
-      phx-hook="LiveToast"
-      data-duration={@duration}
-      data-corner={@corner}
-      class={@toast_class_fn.(assigns)}
+      class={[
+        "fixed top-2 right-2 w-80 sm:w-96 z-50 rounded-lg p-3 ring-1",
+        @kind == :info && "bg-emerald-50 text-emerald-800 ring-emerald-500 fill-cyan-900",
+        @kind == :error && "bg-rose-50 text-rose-900 shadow-md ring-rose-500 fill-rose-900"
+      ]}
       {@rest}
     >
-      <%= if @component do %>
-        <%= @component.(Map.merge(assigns, %{body: msg})) %>
-      <% else %>
-        <div class="grow flex flex-col items-start justify-center">
-          <p
-            :if={@title}
-            data-part="title"
-            class={[
-              if(@icon, do: "mb-2", else: ""),
-              "flex items-center text-sm font-semibold leading-6"
-            ]}
-          >
-            <%= if @icon do %>
-              <%= @icon.(assigns) %>
-            <% end %>
-            <%= @title %>
-          </p>
-          <p class="text-sm leading-5">
-            <%= msg %>
-          </p>
-        </div>
-
-        <%= if @action do %>
-          <%= @action.(assigns) %>
-        <% end %>
-      <% end %>
-      <button
-        type="button"
-        class={[
-          "group-has-[[data-part='title']]/toast:absolute",
-          "right-[5px] top-[5px] rounded-md p-[5px] text-black/50 transition-opacity hover:text-black focus:opacity-100 focus:outline-none focus:ring-1 group group-hover:opacity-100"
-        ]}
-        aria-label="close"
-        {
-        if Phoenix.Flash.get(@flash, @kind),
-          do: ["phx-click": JS.dispatch("flash-leave", to: "##{@id}") |> JS.push("lv:clear-flash", value: %{key: @kind})],
-          else: [
-            "phx-target": @target,
-            "phx-click": "clear",
-            "phx-value-id": @id
-          ]
-        }
-      >
-        <%!-- <Utility.svg
-          name="hero-x-mark-solid"
-          class="h-[14px] w-[14px] opacity-40 group-hover:opacity-70"
-        /> --%>
+      <p :if={@title} class="flex items-center gap-1.5 text-sm font-semibold leading-6">
+        <.icon :if={@kind == :info} name="hero-information-circle-mini" class="w-4 h-4" />
+        <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="w-4 h-4" />
+        <%= @title %>
+      </p>
+      <p class="mt-2 text-sm leading-5"><%= msg %></p>
+      <button type="button" class="absolute p-2 group top-1 right-1" aria-label={gettext("close")}>
+        <.icon name="hero-x-mark-solid" class="w-5 h-5 opacity-40 group-hover:opacity-70" />
       </button>
     </div>
     """
-
   end
 
+  @doc """
+  Shows the flash group with standard titles and content.
 
+  ## Examples
+
+      <.flash_group flash={@flash} />
+  """
+  attr :flash, :map, required: true, doc: "the map of flash messages"
+
+  def flash_group(assigns) do
+    ~H"""
+    <.flash kind={:info} title="Success!" flash={@flash} />
+    <.flash kind={:error} title="Error!" flash={@flash} />
+    <.flash
+      id="client-error"
+      kind={:error}
+      title="We can't find the internet"
+      phx-disconnected={show(".phx-client-error #client-error")}
+      phx-connected={hide("#client-error")}
+      hidden
+    >
+      Attempting to reconnect <.icon name="hero-arrow-path" class="w-3 h-3 ml-1 animate-spin" />
+    </.flash>
+
+    <.flash
+      id="server-error"
+      kind={:error}
+      title="Something went wrong!"
+      phx-disconnected={show(".phx-server-error #server-error")}
+      phx-connected={hide("#server-error")}
+      hidden
+    >
+      Hang in there while we get back on track
+      <.icon name="hero-arrow-path" class="w-3 h-3 ml-1 animate-spin" />
+    </.flash>
+    """
+  end
 end
